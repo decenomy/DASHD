@@ -3743,8 +3743,8 @@ Došlo je do greške prilikom spremanja popisa adresa u %1. Molimo pokušajte po
         <translation>2) Zašto se moji DASHD ne mogu potrošiti?</translation>
     </message>
     <message>
-        <source>https://sappcoin.com/</source>
-        <translation>https://sappcoin.com/</translation>
+        <source>https://dashdiamond.net/</source>
+        <translation>https://dashdiamond.net/</translation>
     </message>
     <message>
         <source>1</source>

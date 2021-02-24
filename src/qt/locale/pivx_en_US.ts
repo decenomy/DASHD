@@ -3849,8 +3849,8 @@ There was an error trying to save the address list to %1. Please try again.</tra
         <translation>2) Why are my DASHD unspendable?</translation>
     </message>
     <message>
-        <source>https://sappcoin.com/</source>
-        <translation>https://sappcoin.com/</translation>
+        <source>https://dashdiamond.net/</source>
+        <translation>https://dashdiamond.net/</translation>
     </message>
     <message>
         <source>1</source>

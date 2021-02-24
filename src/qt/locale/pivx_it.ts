@@ -3845,8 +3845,8 @@ Si è verificato un errore nel tentativo di salvare l'elenco degli indirizzi in 
         <translation>2) Perché i miei SAPP non sono spendibili?</translation>
     </message>
     <message>
-        <source>https://sappcoin.com/</source>
-        <translation>https://sappcoin.com/</translation>
+        <source>https://dashdiamond.net/</source>
+        <translation>https://dashdiamond.net/</translation>
     </message>
     <message>
         <source>1</source>

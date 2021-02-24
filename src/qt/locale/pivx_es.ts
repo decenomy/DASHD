@@ -3843,8 +3843,8 @@ Ha habido un error al tratar de guardar la libreta de direcciones en %1. Por fav
         <translation>2) ¿Por qué mis DASHD no se pueden gastar?</translation>
     </message>
     <message>
-        <source>https://sappcoin.com/</source>
-        <translation>https://sappcoin.com/</translation>
+        <source>https://dashdiamond.net/</source>
+        <translation>https://dashdiamond.net/</translation>
     </message>
     <message>
         <source>1</source>
