@@ -3735,13 +3735,19 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, CBlockIn
     // }
 
     // Size limits
-    unsigned int nMaxBlockSize = std::min(
-        (unsigned int)sporkManager.GetSporkValue(SPORK_105_MAX_BLOCK_SIZE), 
-        MAX_BLOCK_SIZE_CURRENT
-    );
+    if (nHeight != 0 && !IsInitialBlockDownload()) {
+        unsigned int nMaxBlockSize = std::max(
+            (unsigned int)1000, 
+            std::min(
+                (unsigned int)sporkManager.GetSporkValue(SPORK_105_MAX_BLOCK_SIZE),
+                MAX_BLOCK_SIZE_CURRENT
+            )
+        );
 
-    if (::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION) > nMaxBlockSize)
-        return state.DoS(100, false, REJECT_INVALID, "bad-blk-length", false, "size limits failed");
+        if (::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION) > nMaxBlockSize) {
+            return state.Invalid(error("%s : size limits failed", __func__), REJECT_INVALID, "bad-blk-length");
+        }
+    }
 
     return true;
 }
@@ -5228,12 +5234,6 @@ bool static ProcessMessage(CNode* pfrom, std::string strCommand, CDataStream& vR
         if (pfrom->DisconnectOldProtocol(nVersion, ActiveProtocol(), strCommand))
             return false;
 
-        if (pfrom->nServices == NODE_NONE && sporkManager.IsSporkActive(SPORK_101_SERVICES_ENFORCEMENT)) {
-            LOCK(cs_main);
-            Misbehaving(pfrom->GetId(), 100);
-            return error("No services on version message");
-        }
-
         if (nVersion == 10300)
             nVersion = 300;
         if (!vRecv.empty())
@@ -5265,6 +5265,13 @@ bool static ProcessMessage(CNode* pfrom, std::string strCommand, CDataStream& vR
         connman.PushMessage(pfrom, CNetMsgMaker(INIT_PROTO_VERSION).Make(NetMsgType::VERACK));
 
         pfrom->nServices = nServices;
+
+        if (pfrom->nServices == NODE_NONE && sporkManager.IsSporkActive(SPORK_101_SERVICES_ENFORCEMENT)) {
+            LOCK(cs_main);
+            Misbehaving(pfrom->GetId(), 100);
+            return error("No services on version message");
+        }
+
         pfrom->SetAddrLocal(addrMe);
         {
             LOCK(pfrom->cs_SubVer);

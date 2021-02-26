@@ -814,7 +814,7 @@ std::string CMasternodePing::GetStrMessage() const
 {
     int64_t salt = sporkManager.GetSporkValue(SPORK_103_PING_MESSAGE_SALT);
 
-    if (salt == 4070908800ULL) {
+    if (salt != 0) {
         return vin.ToString() + blockHash.ToString() + std::to_string(sigTime) + std::to_string(salt);
     } else {
         return vin.ToString() + blockHash.ToString() + std::to_string(sigTime);
@@ -825,13 +825,11 @@ bool CMasternodePing::CheckAndUpdate(int& nDos, bool fRequireEnabled, bool fChec
 {
     if (sigTime > GetAdjustedTime() + 60 * 60) {
         LogPrint(BCLog::MNPING, "%s: Signature rejected, too far into the future %s\n", __func__, vin.prevout.hash.ToString());
-        nDos = 1;
         return false;
     }
 
     if (sigTime <= GetAdjustedTime() - 60 * 60) {
         LogPrint(BCLog::MNPING, "%s: Signature rejected, too far into the past %s - %d %d \n", __func__, vin.prevout.hash.ToString(), sigTime, GetAdjustedTime());
-        nDos = 1;
         return false;
     }
 
