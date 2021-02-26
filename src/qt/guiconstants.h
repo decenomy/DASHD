@@ -51,7 +51,7 @@ static const int MAX_URI_LENGTH = 255;
 
 
 #define QAPP_ORG_NAME "Dash Diamond"
-#define QAPP_ORG_DOMAIN "sappcoin.com"
+#define QAPP_ORG_DOMAIN "dashdiamond.net"
 #define QAPP_APP_NAME_DEFAULT "DashDiamond-Qt"
 #define QAPP_APP_NAME_TESTNET "DashDiamond-Qt-testnet"
 
