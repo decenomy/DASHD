@@ -1253,7 +1253,7 @@ Cüzdanınız senkronize olduktan ve harcanmamış bakiyeniz yeterli miktarda on
         <translation>Bu miktarda koininizin olduğundan emin olunuz.</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A transaction of 200,000 DASHD will be made&lt;/p&gt;&lt;p&gt;to a new empty address in your wallet.&lt;/p&gt;&lt;p&gt;The Address is labeled under the master node's name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A transaction of secured collateral will be made&lt;/p&gt;&lt;p&gt;to a new empty address in your wallet.&lt;/p&gt;&lt;p&gt;The Address is labeled under the master node's name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;200.000 DASHD'lik bir transfer &lt;/p&gt;&lt;p&gt;yeni ve boş bir adrese yapılacaktır.&lt;/p&gt;&lt;p&gt;Adres Masternode'unuz ismi ile etiketlenecektir.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
@@ -1590,9 +1590,9 @@ Emin misiniz?</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/pivx-project/pivx-project-translations</source>
+https://discord.gg/CeJb7Yxku3</source>
         <translation>Dil eksik veya çeviri tamamlanmamış mı? Katkıda bulunan çevirilere yardımcı olun:
-https://www.transifex.com/pivx-project/pivx-project-translations</translation>
+https://discord.gg/CeJb7Yxku3</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -3279,7 +3279,7 @@ bu sayede Dash Diamond sahipleri blok ödülü kazanımına katılabilmektedir
         <source>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
                            A masternode is a computer running a full node Dash Diamond core wallet with a
-                           requirement of 200,000 DASHD secured collateral to provide extra services
+                           requirement of secured collateral to provide extra services
                            to the network and in return, receive a portion of the block reward
                            regularly.  These services include:
                            &lt;/p&gt;&lt;p align="justify"&gt;
@@ -3311,7 +3311,7 @@ bu sayede Dash Diamond sahipleri blok ödülü kazanımına katılabilmektedir
                            Requirements:
                            &lt;/p&gt;&lt;p align="justify"&gt;
                            &lt;ul&gt;
-                           &lt;li&gt;200,000 DASHD per single Masternode instance&lt;/li&gt;
+                           &lt;li&gt;Enough collateral balance per single Masternode instance&lt;/li&gt;
                            &lt;li&gt;Must be stored in a core wallet&lt;/li&gt;
                            &lt;li&gt;Need dedicated IP address&lt;/li&gt;
                            &lt;li&gt;Masternode wallet to remain online&lt;/li&gt;

@@ -1279,7 +1279,7 @@ It will start automatically as soon as the wallet has enough confirmations on an
         <translation>새로운 마스터노드 컨트롤러 만들기</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To create a Dash Diamond Masternode you must dedicate 200,000 DASHD (the unit of Dash Diamond) to the network (however, these coins are still yours and will never leave your possession). &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;You can deactivate the node and unlock the coins at any time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To create a Dash Diamond Masternode you must dedicate a collateral amount of DASHD (the unit of Dash Diamond) to the network (however, these coins are still yours and will never leave your possession). &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;You can deactivate the node and unlock the coins at any time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dash Diamond 마스터노드를 생성하기 위해서는 200,000 DASHD (Dash Diamond 단위)를 네트워크에 예치해야 합니다. (예치한 코인은 계속 본인의 소유입니다.) &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;언제든지 노드를 비활성화 시키고 코인을 잠금해제할 수 있습니다.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
@@ -1299,7 +1299,7 @@ It will start automatically as soon as the wallet has enough confirmations on an
         <translation>이만큼의 코인을 보유하고 있는지 확인하십시오.</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A transaction of 200,000 DASHD will be made&lt;/p&gt;&lt;p&gt;to a new empty address in your wallet.&lt;/p&gt;&lt;p&gt;The Address is labeled under the master node's name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A transaction of secured collateral will be made&lt;/p&gt;&lt;p&gt;to a new empty address in your wallet.&lt;/p&gt;&lt;p&gt;The Address is labeled under the master node's name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;200,000 DASHD의 트랜잭션은&lt;/p&gt;&lt;p&gt;지갑의 새로운 빈 주소로 만들어질 것입니다.&lt;/p&gt;&lt;p&gt;그 주소는 마스터노드 이름에 따라 레이블링됩니다.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
@@ -1731,9 +1731,9 @@ Are you sure?</source>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/pivx-project/pivx-project-translations</source>
+https://discord.gg/CeJb7Yxku3</source>
         <translation>지원 언어가 없거나 번역이 불완전한가요? 번역을 도와주세요 :
-https://www.transifex.com/pivx-project/pivx-project-translations</translation>
+https://discord.gg/CeJb7Yxku3</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>

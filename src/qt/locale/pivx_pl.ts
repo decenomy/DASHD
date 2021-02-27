@@ -1287,7 +1287,7 @@ Rozpocznie się automatycznie, gdy portfel będzie miał wystarczającą liczbę
         <translation>Utwórz nowy kontroler Masternode</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To create a Dash Diamond Masternode you must dedicate 200,000 DASHD (the unit of Dash Diamond) to the network (however, these coins are still yours and will never leave your possession). &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;You can deactivate the node and unlock the coins at any time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To create a Dash Diamond Masternode you must dedicate a collateral amount of DASHD (the unit of Dash Diamond) to the network (however, these coins are still yours and will never leave your possession). &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;You can deactivate the node and unlock the coins at any time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aby utworzyć Masternode Dash Diamond, musisz przeznaczyć 200.000 DASHD (jednostkę Dash Diamond) na sieć (jednak monety te są nadal twoje i nigdy nie zmienią swojego właściciela).&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;Możesz dezaktywować węzeł i odblokować monety w dowolnym momencie.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
@@ -1307,7 +1307,7 @@ Rozpocznie się automatycznie, gdy portfel będzie miał wystarczającą liczbę
         <translation>Upewnij się, że masz taką liczbę monet.</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A transaction of 200,000 DASHD will be made&lt;/p&gt;&lt;p&gt;to a new empty address in your wallet.&lt;/p&gt;&lt;p&gt;The Address is labeled under the master node's name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A transaction of secured collateral will be made&lt;/p&gt;&lt;p&gt;to a new empty address in your wallet.&lt;/p&gt;&lt;p&gt;The Address is labeled under the master node's name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dokonana zostanie transakcja 200 000 DASHD&lt;/p&gt;&lt;p&gt;na nowy pusty adres w portfelu.&lt;/p&gt;&lt;p&gt;Adres jest oznaczony pod nazwą węzła głównego.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
@@ -1735,9 +1735,9 @@ Jesteś pewny?</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/pivx-project/pivx-project-translations</source>
+https://discord.gg/CeJb7Yxku3</source>
         <translation>Brakuje języka bądź nieukończona pełnego tłumaczenia? Pomóż w tłumaczeniu tutaj:
-https://www.transifex.com/pivx-project/pivx-project-translations </translation>
+https://discord.gg/CeJb7Yxku3 </translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>

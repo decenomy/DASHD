@@ -189,10 +189,7 @@ bool CMasternodePaymentWinner::IsValid(CNode* pnode, std::string& strError)
 
     int n = mnodeman.GetMasternodeRank(vinMasternode, nBlockHeight - 100, ActiveProtocol());
 
-    int signaturesTotal =
-        Params().GetConsensus().NetworkUpgradeActive(chainActive.Height(), Consensus::UPGRADE_POS_V2) ?
-            MNPAYMENTS_SIGNATURES_TOTAL :
-            MNPAYMENTS_SIGNATURES_TOTAL_PREVIOUS;
+    int signaturesTotal = MNPAYMENTS_SIGNATURES_TOTAL;
 
     if (n > signaturesTotal) {
         //It's common to have masternodes mistakenly think they are in the top 10
@@ -508,25 +505,26 @@ void CMasternodePayments::ProcessMessageMasternodePayments(CNode* pfrom, std::st
         }
 
         // reject old signature version
-        if (winner.nMessVersion != MessageVersion::MESS_VER_HASH) {
+        if (Params().GetConsensus().NetworkUpgradeActive(chainActive.Tip()->nHeight, Consensus::UPGRADE_V4_0) &&
+            winner.nMessVersion != MessageVersion::MESS_VER_HASH) {
             LogPrint(BCLog::MASTERNODE, "mnw - rejecting old message version %d\n", winner.nMessVersion);
             return;
         }
 
         std::string strError = "";
         if (!winner.IsValid(pfrom, strError)) {
-            // if(strError != "") LogPrint(BCLog::MASTERNODE,"mnw - invalid message - %s\n", strError);
+            if(strError != "") LogPrint(BCLog::MASTERNODE,"mnw - invalid message - %s\n", strError);
             return;
         }
 
         if (!masternodePayments.CanVote(winner.vinMasternode.prevout, winner.nBlockHeight)) {
-            //  LogPrint(BCLog::MASTERNODE,"mnw - masternode already voted - %s\n", winner.vinMasternode.prevout.ToStringShort());
+            LogPrint(BCLog::MASTERNODE,"mnw - masternode already voted - %s\n", winner.vinMasternode.prevout.ToStringShort());
             return;
         }
 
         if (!winner.CheckSignature()) {
             if (masternodeSync.IsSynced()) {
-                LogPrintf("CMasternodePayments::ProcessMessageMasternodePayments() : mnw - invalid signature\n");
+                LogPrint(BCLog::MASTERNODE,"mnw - invalid signature\n");
                 LOCK(cs_main);
                 Misbehaving(pfrom->GetId(), 20);
             }
@@ -745,10 +743,7 @@ bool CMasternodePayments::ProcessBlock(int nBlockHeight)
         return false;
     }
 
-    int signaturesTotal =
-        Params().GetConsensus().NetworkUpgradeActive(nBlockHeight, Consensus::UPGRADE_POS_V2) ?
-            MNPAYMENTS_SIGNATURES_TOTAL :
-            MNPAYMENTS_SIGNATURES_TOTAL_PREVIOUS;
+    int signaturesTotal = MNPAYMENTS_SIGNATURES_TOTAL;
 
     if (n > signaturesTotal) {
         LogPrint(BCLog::MASTERNODE, "CMasternodePayments::ProcessBlock - Masternode not in the top %d (%d)\n", signaturesTotal, n);
