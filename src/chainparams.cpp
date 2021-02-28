@@ -199,6 +199,7 @@ public:
         nDefaultPort = 12341;
 
         // Note that of those with the service bits flag, most only support a subset of possible options
+        vSeeds.emplace_back(CDNSSeedData("seeder.dashdiamond.net", "seeder.dashdiamond.net", true));
         vSeeds.emplace_back(CDNSSeedData("seed1.dashdiamond.net", "seed1.dashdiamond.net", true));
         vSeeds.emplace_back(CDNSSeedData("seed2.dashdiamond.net", "seed2.dashdiamond.net", true));
         vSeeds.emplace_back(CDNSSeedData("seed3.dashdiamond.net", "seed3.dashdiamond.net", true));
@@ -346,16 +347,15 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back(CDNSSeedData("kyan-testnet.572133.club", "kyan-testnet.572133.club", true));
-        vSeeds.emplace_back(CDNSSeedData("kyan-testnet2.572133.club", "kyan-testnet2.572133.club", true));
-        vSeeds.emplace_back(CDNSSeedData("seed1.sappcoin.com", "seed1.sappcoin.com", true));
-        vSeeds.emplace_back(CDNSSeedData("seed2.sappcoin.com", "seed2.sappcoin.com", true));
-        vSeeds.emplace_back(CDNSSeedData("seed3.sappcoin.com", "seed3.sappcoin.com", true));
-        vSeeds.emplace_back(CDNSSeedData("seed4.sappcoin.com", "seed4.sappcoin.com", true));
-        vSeeds.emplace_back(CDNSSeedData("seed5.sappcoin.com", "seed5.sappcoin.com", true));
-        vSeeds.emplace_back(CDNSSeedData("seed6.sappcoin.com", "seed6.sappcoin.com", true));
-        vSeeds.emplace_back(CDNSSeedData("seed7.sappcoin.com", "seed7.sappcoin.com", true));
-        vSeeds.emplace_back(CDNSSeedData("seed8.sappcoin.com", "seed8.sappcoin.com", true));
+        vSeeds.emplace_back(CDNSSeedData("dashdseeder.4444.tools", "dashdseeder.4444.tools", true));
+        vSeeds.emplace_back(CDNSSeedData("dashd1.4444.tools", "dashd1.4444.tools", true));
+        vSeeds.emplace_back(CDNSSeedData("dashd2.4444.tools", "dashd2.4444.tools", true));
+        vSeeds.emplace_back(CDNSSeedData("dashd3.4444.tools", "dashd3.4444.tools", true));
+        vSeeds.emplace_back(CDNSSeedData("dashd4.4444.tools", "dashd4.4444.tools", true));
+        vSeeds.emplace_back(CDNSSeedData("dashd5.4444.tools", "dashd5.4444.tools", true));
+        vSeeds.emplace_back(CDNSSeedData("dashd6.4444.tools", "dashd6.4444.tools", true));
+        vSeeds.emplace_back(CDNSSeedData("dashd7.4444.tools", "dashd7.4444.tools", true));
+        vSeeds.emplace_back(CDNSSeedData("dashd8.4444.tools", "dashd8.4444.tools", true));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 139); // Testnet dashdiamond addresses start with 'x' or 'y'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 19);  // Testnet dashdiamond script addresses start with '8' or '9'
