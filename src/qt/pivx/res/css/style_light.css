@@ -100,6 +100,28 @@ QPushButton[cssClass="img-nav-logo"] {
   color: #2ea1ff;
 }
 
+/*****
+*masternode conf & dashd conf file edit topbar buttons.
+*****/
+
+QPushButton[cssClass="btn-check-conf"] {
+  qproperty-icon: url("://ic-check-settings") ;
+  qproperty-iconSize: 24px 24px;
+  color:#B3FFFFFF;
+  background-color:#405c4b7d;
+  border-bottom:2px solid #5C4B7D;
+  border-radius:2px;
+}
+
+QPushButton[cssClass="btn-check-masternodes"] {
+  qproperty-icon: url("://ic-check-settings") ;
+  qproperty-iconSize: 24px 24px;
+  color:#B3FFFFFF;
+  background-color:#405c4b7d;
+  border-bottom:2px solid #5C4B7D;
+  border-radius:2px;
+}
+
 /*HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
 !############# Cold staking
  ################################*/
@@ -1699,14 +1721,14 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
   border-bottom: 5px solid #bdbdbd;
 }
 
-*[cssClass="text-stake-zpiv"] {
-  color: #262626;
+*[cssClass="text-stake-mnrewards"] {
+  color: #6666ff;
   font-size: 16px;
   padding: 10px;
-  border-bottom: 5px solid #bdbdbd;
+  border-bottom: 5px solid #6666ff;
 }
 
-*[cssClass="text-stake-zpiv-disable"] {
+*[cssClass="text-stake-mnrewards-disable"] {
   color: #d7d5da;
   font-size: 16px;
   padding: 10px;
@@ -1718,8 +1740,8 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
   font-size: 16px;
 }
 
-*[cssClass="text-chart-zpiv"] {
-  color: #262626;
+*[cssClass="text-chart-mnrewards"] {
+  color: #6666ff;
   font-size: 16px;
   padding-left: 4px;
 }
