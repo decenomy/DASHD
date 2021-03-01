@@ -9,14 +9,6 @@ pipeline {
 
     stages {
 
-        stage('get_git_tag') {
-            steps {
-                env.BUILD_VERSION = sh(returnStdout:  true, script: "git tag --sort=-creatordate | head -n 1").trim().replace("v", "")
-                echo "env-BUILD_VERSION"
-                echo "${env.BUILD_VERSION}"
-            }
-        }
-
         stage("depends") {
 
             steps {
@@ -59,7 +51,7 @@ pipeline {
                     mkdir -p deploy/linux
                     cp src/${BASE_NAME}d src/${BASE_NAME}-cli src/${BASE_NAME}-tx src/qt/${BASE_NAME}-qt deploy/linux/
                     cd deploy/linux
-                    zip ${BASE_NAME}-${env.BUILD_VERSION}-Linux.zip ${BASE_NAME}d ${BASE_NAME}-cli ${BASE_NAME}-tx ${BASE_NAME}-qt
+                    zip ${BASE_NAME}-$(git describe --abbrev=0 --tags | sed s/v//)-Linux.zip ${BASE_NAME}d ${BASE_NAME}-cli ${BASE_NAME}-tx ${BASE_NAME}-qt
                     rm -f ${BASE_NAME}d ${BASE_NAME}-cli ${BASE_NAME}-tx ${BASE_NAME}-qt
                 """
             }
