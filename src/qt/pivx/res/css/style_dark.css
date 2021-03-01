@@ -153,7 +153,7 @@ QPushButton[cssClass="btn-check-conf"] {
     qproperty-iconSize: 24px 24px;
     color:#ffffff;
     background-color:#0b2c42;
-    border-bottom:2px solid #5C4B7D;
+    border-bottom:2px solid #43b3ff;
     border-radius:2px;
 }
 
@@ -162,7 +162,7 @@ QPushButton[cssClass="btn-check-masternodes"] {
     qproperty-iconSize: 24px 24px;
     color:#ffffff;
     background-color:#0b2c42;
-    border-bottom:2px solid #5C4B7D;
+    border-bottom:2px solid #43b3ff;
     border-radius:2px;
 }
 /*******************
