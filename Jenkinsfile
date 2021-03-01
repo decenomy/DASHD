@@ -3,6 +3,7 @@ pipeline {
     agent any
 
     environment {
+        NAME = 'DashDiamond'
         BASE_NAME = 'dashdiamond'
         ZIP_NAME = 'DASHD'
     }
@@ -81,6 +82,35 @@ pipeline {
                     cd deploy/windows
                     zip ${ZIP_NAME}-\$(git describe --abbrev=0 --tags | sed s/v//)-Windows.zip ${BASE_NAME}d.exe ${BASE_NAME}-cli.exe ${BASE_NAME}-tx.exe ${BASE_NAME}-qt.exe
                     rm -f ${BASE_NAME}d.exe ${BASE_NAME}-cli.exe ${BASE_NAME}-tx.exe ${BASE_NAME}-qt.exe
+                """
+            }
+        }
+
+        stage("build_macos") {
+
+            steps {
+                echo 'building macos ...'
+                sh '''#!/bin/bash
+                    make clean
+                    ./autogen.sh
+                    ./configure --prefix=$(pwd)/depends/x86_64-apple-darwin14 --enable-cxx --enable-static --disable-shared --disable-debug --disable-tests --disable-bench --disable-online-rust
+                    make -j $(nproc) HOST=x86_64-apple-darwin14
+                '''
+            }
+        }
+
+        stage("deploy_macos") {
+
+            steps {
+                echo 'deploy macos ...'
+
+                sh """#!/bin/bash
+                    make deploy -j $(nproc) HOST=x86_64-apple-darwin14
+                    mkdir -p deploy/macos
+                    cp src/${BASE_NAME}d src/${BASE_NAME}-cli src/${BASE_NAME}-tx src/qt/${BASE_NAME}-qt ${NAME}-Core.dmg deploy/macos/
+                    cd deploy/macos
+                    zip ${ZIP_NAME}-\$(git describe --abbrev=0 --tags | sed s/v//)-MacOS.zip ${BASE_NAME}d ${BASE_NAME}-cli ${BASE_NAME}-tx ${BASE_NAME}-qt ${NAME}-Core.dmg
+                    rm -f ${BASE_NAME}d ${BASE_NAME}-cli ${BASE_NAME}-tx ${BASE_NAME}-qt ${NAME}-Core.dmg
                 """
             }
         }
