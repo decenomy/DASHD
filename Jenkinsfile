@@ -8,13 +8,19 @@ pipeline {
 
             steps {
                 echo 'building depends ...'
-                sh 'make -C depends -j 12 HOST=x86_64-pc-linux-gnu'
-                sh 'make -C depends -j 12 HOST=x86_64-w64-mingw32'
-                sh 'cd depends && mkdir SDKs'
-                sh 'cd depends/SDKs && wget https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.11.sdk.tar.xz'
-                sh 'cd depends/SDKs && tar -xf MacOSX10.11.sdk.tar.xz'
-                sh 'cd depends/SDKs && rm MacOSX10.11.sdk.tar.xz'
-                sh 'make -C depends -j 12 HOST=x86_64-apple-darwin14'
+                sh '''#!/bin/bash
+                    cd depends
+                    make -j $(nproc) HOST=x86_64-pc-linux-gnu
+                    make -j $(nproc) HOST=x86_64-w64-mingw32'
+                    rm -rf SDKs
+                    mkdir SDKs
+                    cd SDKs
+                    wget -nc https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.11.sdk.tar.xz
+                    tar -xf MacOSX10.11.sdk.tar.xz
+                    rm MacOSX10.11.sdk.tar.xz
+                    cd ..
+                    make -j $(nproc) HOST=x86_64-apple-darwin14
+                '''
             }
         }
 
