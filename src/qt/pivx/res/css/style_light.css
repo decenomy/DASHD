@@ -3027,7 +3027,7 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
   border-bottom: 1px solid #eeeeee;
   border-radius: 0px;
   color: #707070;
-  background-color: #64dd34ba;
+  background-color: #88cfff;
 }
 
 #treeWidget::item:selected {
@@ -3035,7 +3035,7 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
   border-bottom: 1px solid #e6e6e6;
   border-radius: 0px;
   color: #707070;
-  background-color: rgb(103, 245, 68);
+  background-color: #88cfff;
 }
 
 #treeWidget::item:hover:selected {
@@ -3043,24 +3043,24 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
   border-bottom: 1px solid #e6e6e6;
   border-radius: 0px;
   color: #707070;
-  background-color: rgb(96, 224, 64);
+  background-color: #88cfff;
 }
 
 #treeWidget::branch {
   background-color: #ffffff;
-  selection-background-color: #8bf943;
+  selection-background-color: #88cfff;
 }
 
 #treeWidget::branch:selected {
-  background-color: #8bf943;
+  background-color: #88cfff;
 }
 
 #treeWidget::branch:!selected {
-  background-color: #8bf943;
+  background-color: #88cfff;
 }
 
 #treeWidget::branch:hover {
-  background-color: #44ba26ba;
+  background-color: #0094f9;
 }
 
 #treeWidget::branch:!has-children {
