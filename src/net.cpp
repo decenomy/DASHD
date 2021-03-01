@@ -1438,7 +1438,7 @@ void ThreadMapPort()
             }
         }
 
-        std::string strDesc = "Dashdiamond " + FormatFullVersion();
+        std::string strDesc = "DashDiamond " + FormatFullVersion();
 
         try {
             while (true) {

@@ -534,7 +534,7 @@ bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, Optional<CReserveKey>& r
     {
         WAIT_LOCK(g_best_block_mutex, lock);
         if (pblock->hashPrevBlock != g_best_block)
-            return error("DashdiamondMiner : generated block is stale");
+            return error("DashDiamondMiner : generated block is stale");
     }
 
     // Remove key from key pool
@@ -547,7 +547,7 @@ bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, Optional<CReserveKey>& r
     // Process this block the same as if we had received it from another node
     CValidationState state;
     if (!ProcessNewBlock(state, nullptr, pblock, nullptr, g_connman.get())) {
-        return error("DashdiamondMiner : ProcessNewBlock, block not accepted");
+        return error("DashDiamondMiner : ProcessNewBlock, block not accepted");
     }
 
     g_connman->ForEachNode([&pblock](CNode* node)
@@ -574,7 +574,7 @@ void CheckForCoins(CWallet* pwallet, const int minutes, std::vector<COutput>* av
 
 void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
 {
-    LogPrintf("DashdiamondMiner started\n");
+    LogPrintf("DashDiamondMiner started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
     util::ThreadRename("dashdiamond-miner");
     const Consensus::Params& consensus = Params().GetConsensus();
@@ -653,7 +653,7 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
         // POW - miner main
         IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
 
-        LogPrintf("Running DashdiamondMiner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
+        LogPrintf("Running DashDiamondMiner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
             ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
 
         //
@@ -739,12 +739,12 @@ void static ThreadBitcoinMiner(void* parg)
         BitcoinMiner(pwallet, false);
         boost::this_thread::interruption_point();
     } catch (const std::exception& e) {
-        LogPrintf("DashdiamondMiner exception");
+        LogPrintf("DashDiamondMiner exception");
     } catch (...) {
-        LogPrintf("DashdiamondMiner exception");
+        LogPrintf("DashDiamondMiner exception");
     }
 
-    LogPrintf("DashdiamondMiner exiting\n");
+    LogPrintf("DashDiamondMiner exiting\n");
 }
 
 void GenerateBitcoins(bool fGenerate, CWallet* pwallet, int nThreads)
