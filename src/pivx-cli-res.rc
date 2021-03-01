@@ -17,7 +17,7 @@ BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
             VALUE "CompanyName",        "dashdiamond"
-            VALUE "FileDescription",    "dashdiamond-cli (OSS RPC client for Dash-Diamond)"
+            VALUE "FileDescription",    "dashdiamond-cli (OSS RPC client for DashDiamond)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "dashdiamond-cli"
             VALUE "LegalCopyright",     COPYRIGHT_STR
