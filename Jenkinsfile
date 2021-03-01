@@ -11,7 +11,7 @@ pipeline {
                 sh '''#!/bin/bash
                     cd depends
                     make -j $(nproc) HOST=x86_64-pc-linux-gnu
-                    make -j $(nproc) HOST=x86_64-w64-mingw32'
+                    make -j $(nproc) HOST=x86_64-w64-mingw32
                     rm -rf SDKs
                     mkdir SDKs
                     cd SDKs
