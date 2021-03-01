@@ -166,15 +166,15 @@ public:
         consensus.vUpgrades[Consensus::BASE_NETWORK].nActivationHeight                  = Consensus::NetworkUpgrade::ALWAYS_ACTIVE;
         consensus.vUpgrades[Consensus::UPGRADE_TESTDUMMY].nActivationHeight             = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
         consensus.vUpgrades[Consensus::UPGRADE_POS].nActivationHeight                   = 201;
-        consensus.vUpgrades[Consensus::UPGRADE_POS_V2].nActivationHeight                = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT; 
+        consensus.vUpgrades[Consensus::UPGRADE_POS_V2].nActivationHeight                = 337700; 
         consensus.vUpgrades[Consensus::UPGRADE_ZC].nActivationHeight                    = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
         consensus.vUpgrades[Consensus::UPGRADE_ZC_V2].nActivationHeight                 = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
-        consensus.vUpgrades[Consensus::UPGRADE_BIP65].nActivationHeight                 = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT; 
+        consensus.vUpgrades[Consensus::UPGRADE_BIP65].nActivationHeight                 = 337700; 
         consensus.vUpgrades[Consensus::UPGRADE_ZC_PUBLIC].nActivationHeight             = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
-        consensus.vUpgrades[Consensus::UPGRADE_V3_4].nActivationHeight                  = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT; 
-        consensus.vUpgrades[Consensus::UPGRADE_V4_0].nActivationHeight                  = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT; 
-        consensus.vUpgrades[Consensus::UPGRADE_V2_DUMMY].nActivationHeight              = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT; 
-        consensus.vUpgrades[Consensus::UPGRADE_STAKE_MIN_DEPTH_V2].nActivationHeight    = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT; 
+        consensus.vUpgrades[Consensus::UPGRADE_V3_4].nActivationHeight                  = 337800; 
+        consensus.vUpgrades[Consensus::UPGRADE_V4_0].nActivationHeight                  = 337900; 
+        consensus.vUpgrades[Consensus::UPGRADE_V2_DUMMY].nActivationHeight              = 338000; 
+        consensus.vUpgrades[Consensus::UPGRADE_STAKE_MIN_DEPTH_V2].nActivationHeight    = 338100; 
         consensus.vUpgrades[Consensus::UPGRADE_NEW_TARGET_SPACING].nActivationHeight    = 292001;   
 
         consensus.vUpgrades[Consensus::UPGRADE_ZC].hashActivationBlock                  = uint256S("0x0");
