@@ -5,10 +5,20 @@ pipeline {
     environment {
         BASE_NAME = 'dashdiamond'
         ZIP_NAME = 'DASHD'
-        TAG_NAME = sh(returnStdout:  true, script: "git tag --sort=-creatordate | head -n 1").trim().replace("v", "")
     }
 
     stages {
+
+        stage('get_git_tag') {
+            steps {
+                script {
+                    latestTag = sh(returnStdout:  true, script: "git tag --sort=-creatordate | head -n 1").trim().replace("v", "")
+                    env.BUILD_VERSION = latestTag
+                    echo "env-BUILD_VERSION"
+                    echo "${env.BUILD_VERSION}"
+                }
+            }
+        }
 
         stage("depends") {
 
@@ -47,6 +57,7 @@ pipeline {
 
             steps {
                 echo 'deploy linux ...'
+
                 sh """#!/bin/bash
                     mkdir -p deploy/linux
                     cp src/${BASE_NAME}d src/${BASE_NAME}-cli src/${BASE_NAME}-tx src/qt/${BASE_NAME}-qt deploy/linux/
