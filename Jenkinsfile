@@ -5,6 +5,7 @@ pipeline {
     environment {
         BASE_NAME = 'dashdiamond'
         ZIP_NAME = 'DASHD'
+        TAG_NAME = sh(returnStdout:  true, script: "git tag --sort=-creatordate | head -n 1").trim().replace("v", "")
     }
 
     stages {
