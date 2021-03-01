@@ -728,7 +728,7 @@ QPushButton[cssClass="btn-check-lock-sub-menu-unlocked"] {
   background-color: transparent;
   text-align: left;
   padding-left: 30px;
-  color: #ffffff;
+  color: #fff;
   border-bottom: 0px;
   border-radius: 0px;
 }
@@ -738,7 +738,7 @@ QPushButton[cssClass="btn-check-lock-sub-menu-unlocked"]:checked {
 }
 
 QPushButton[cssClass="btn-check-lock-sub-menu-unlocked"]:hover {
-  color: #262626;
+  color: #fff;
 }
 
 QPushButton[cssClass="btn-check-lock-sub-menu-locked"] {
@@ -748,7 +748,7 @@ QPushButton[cssClass="btn-check-lock-sub-menu-locked"] {
   background-color: transparent;
   text-align: left;
   padding-left: 30px;
-  color: #262626;
+  color: #fff;
   border-bottom: 0px;
   border-radius: 0px;
 }
@@ -758,7 +758,7 @@ QPushButton[cssClass="btn-check-lock-sub-menu-locked"]:checked {
 }
 
 QPushButton[cssClass="btn-check-lock-sub-menu-locked"]:hover {
-  color: #262626;
+  color: #fff;
 }
 
 QPushButton[cssClass="btn-check-lock-sub-menu-staking"] {
@@ -768,7 +768,7 @@ QPushButton[cssClass="btn-check-lock-sub-menu-staking"] {
   background-color: transparent;
   text-align: left;
   padding-left: 30px;
-  color: #262626;
+  color: #fff;
   border-bottom: 0px;
   border-radius: 0px;
 }
@@ -778,7 +778,7 @@ QPushButton[cssClass="btn-check-lock-sub-menu-staking"]:checked {
 }
 
 QPushButton[cssClass="btn-check-lock-sub-menu-staking"]:hover {
-  color: #262626;
+  color: #fff;
 }
 
 *[cssClass="top-sub-menu"] {
