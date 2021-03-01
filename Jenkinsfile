@@ -2,6 +2,11 @@ pipeline {
 
     agent any
 
+    environment {
+        BASE_NAME = 'dashdiamond'
+        ZIP_NAME = 'DASHD'
+    }
+
     stages {
 
         stage("depends") {
@@ -28,17 +33,12 @@ pipeline {
 
             steps {
                 echo 'building linux ...'
-            }
-        }
-
-        stage("test_linux") {
-            when {
-                expression {
-                    BRANCH_NAME == 'develop'
-                }
-            }
-            steps {
-                echo 'testing linux ...'
+                sh '''#!/bin/bash
+                    make clean
+                    ./autogen.sh
+                    ./configure --enable-glibc-back-compat --prefix=$(pwd)/depends/x86_64-pc-linux-gnu LDFLAGS="-static-libstdc++" --enable-cxx --enable-static --disable-shared --disable-debug --disable-tests --disable-bench --with-pic CPPFLAGS="-fPIC -O3" CXXFLAGS="-fPIC -O3"
+	                make -j $(nproc) HOST=x86_64-pc-linux-gnu
+                '''
             }
         }
 
@@ -46,6 +46,13 @@ pipeline {
 
             steps {
                 echo 'deploy linux ...'
+                sh '''#!/bin/bash
+                    mkdir -p deploy/linux
+                    cp src/$(BASE_NAME)d src/$(BASE_NAME)-cli src/$(BASE_NAME)-tx src/qt/$(BASE_NAME)-qt deploy/linux
+                    cd deploy/linux
+                    zip $(BASE_NAME)-$( ./$(BASE_NAME)-cli --version | grep -Po '\d\.\d\.\d\.\d' )-Linux.zip $(BASE_NAME)d $(BASE_NAME)-cli $(BASE_NAME)-tx $(BASE_NAME)-qt
+                    rm -f $(BASE_NAME)d $(BASE_NAME)-cli $(BASE_NAME)-tx $(BASE_NAME)-qt
+                '''
             }
         }
     }
