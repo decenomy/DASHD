@@ -49,8 +49,7 @@ static const int MAX_URI_LENGTH = 255;
 /* QRCodeDialog -- size of exported QR Code image */
 #define EXPORT_IMAGE_SIZE 256
 
-
-#define QAPP_ORG_NAME "Dash Diamond"
+#define QAPP_ORG_NAME "DashDiamond"
 #define QAPP_ORG_DOMAIN "dashdiamond.net"
 #define QAPP_APP_NAME_DEFAULT "DashDiamond-Qt"
 #define QAPP_APP_NAME_TESTNET "DashDiamond-Qt-testnet"
