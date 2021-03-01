@@ -75,7 +75,6 @@ pipeline {
 
             steps {
                 echo 'deploy windows ...'
-
                 sh """#!/bin/bash
                     mkdir -p deploy/windows
                     cp src/${BASE_NAME}d.exe src/${BASE_NAME}-cli.exe src/${BASE_NAME}-tx.exe src/qt/${BASE_NAME}-qt.exe deploy/windows/
@@ -103,9 +102,8 @@ pipeline {
 
             steps {
                 echo 'deploy macos ...'
-
                 sh """#!/bin/bash
-                    make deploy -j $(nproc) HOST=x86_64-apple-darwin14
+                    make deploy HOST=x86_64-apple-darwin14
                     mkdir -p deploy/macos
                     cp src/${BASE_NAME}d src/${BASE_NAME}-cli src/${BASE_NAME}-tx src/qt/${BASE_NAME}-qt ${NAME}-Core.dmg deploy/macos/
                     cd deploy/macos
