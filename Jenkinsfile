@@ -46,13 +46,13 @@ pipeline {
 
             steps {
                 echo 'deploy linux ...'
-                sh '''#!/bin/bash
+                sh """#!/bin/bash
                     mkdir -p deploy/linux
-                    cp src/$(BASE_NAME)d src/$(BASE_NAME)-cli src/$(BASE_NAME)-tx src/qt/$(BASE_NAME)-qt deploy/linux
+                    cp src/${BASE_NAME}d src/${BASE_NAME}-cli src/${BASE_NAME}-tx src/qt/${BASE_NAME}-qt deploy/linux/
                     cd deploy/linux
-                    zip $(BASE_NAME)-$( ./$(BASE_NAME)-cli --version | grep -Po "\d\.\d\.\d\.\d" )-Linux.zip $(BASE_NAME)d $(BASE_NAME)-cli $(BASE_NAME)-tx $(BASE_NAME)-qt
-                    rm -f $(BASE_NAME)d $(BASE_NAME)-cli $(BASE_NAME)-tx $(BASE_NAME)-qt
-                '''
+                    zip ${BASE_NAME}-$( ./${BASE_NAME}-cli --version | grep -Po '\\d\\.\\d\\.\\d\\.\\d' )-Linux.zip ${BASE_NAME}d ${BASE_NAME}-cli ${BASE_NAME}-tx ${BASE_NAME}-qt
+                    rm -f ${BASE_NAME}d ${BASE_NAME}-cli ${BASE_NAME}-tx ${BASE_NAME}-qt
+                """
             }
         }
     }
