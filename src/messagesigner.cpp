@@ -81,15 +81,29 @@ bool CSignedMessage::Sign(const CKey& key, const CPubKey& pubKey)
 {
     std::string strError = "";
 
-    nMessVersion = MessageVersion::MESS_VER_HASH;
-    uint256 hash = GetSignatureHash();
+    //it's too new, wait for a cycle
+    if (Params().GetConsensus().NetworkUpgradeActive(chainActive.Tip()->nHeight, Consensus::UPGRADE_V3_4)) {
+        nMessVersion = MessageVersion::MESS_VER_HASH;
+        uint256 hash = GetSignatureHash();
 
-    if (!CHashSigner::SignHash(hash, key, vchSig)) {
-        return error("%s : SignHash() failed", __func__);
-    }
+        if (!CHashSigner::SignHash(hash, key, vchSig)) {
+            return error("%s : SignHash() failed", __func__);
+        }
 
-    if (!CHashSigner::VerifyHash(hash, pubKey, vchSig, strError)) {
-        return error("%s : VerifyHash() failed, error: %s", __func__, strError);
+        if (!CHashSigner::VerifyHash(hash, pubKey, vchSig, strError)) {
+            return error("%s : VerifyHash() failed, error: %s", __func__, strError);
+        }
+    } else {
+        nMessVersion = MessageVersion::MESS_VER_STRMESS;
+        std::string strMessage = GetStrMessage();
+
+        if (!CMessageSigner::SignMessage(strMessage, vchSig, key)) {
+            return error("%s : SignMessage() failed", __func__);
+        }
+
+        if (!CMessageSigner::VerifyMessage(pubKey, vchSig, strMessage, strError)) {
+            return error("%s : VerifyMessage() failed, error: %s\n", __func__, strError);
+        }
     }
 
     return true;
