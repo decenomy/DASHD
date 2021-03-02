@@ -105,20 +105,18 @@ QPushButton[cssClass="img-nav-logo"] {
 *****/
 
 QPushButton[cssClass="btn-check-conf"] {
-  qproperty-icon: url("://ic-check-settings") ;
+  qproperty-icon: url("://ic-check-dashd-conf") ;
   qproperty-iconSize: 24px 24px;
-  color:#B3FFFFFF;
+  color: #262626;
   background-color:#d1d3d4;
-  border-bottom:2px solid #43b3ff;
   border-radius:2px;
 }
 
 QPushButton[cssClass="btn-check-masternodes"] {
-  qproperty-icon: url("://ic-check-settings") ;
+  qproperty-icon: url("://ic-check-mn-conf") ;
   qproperty-iconSize: 24px 24px;
-  color:#B3FFFFFF;
+  color: #262626;
   background-color:#d1d3d4;
-  border-bottom:2px solid #43b3ff;
   border-radius:2px;
 }
 
@@ -907,7 +905,7 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
 }
 
 *[cssClass="text-list-amount-receive"] {
-  color: #1e5e37;
+  color: #33995a;
   font-size: 16px;
 }
 
@@ -1708,58 +1706,58 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
 }
 
 *[cssClass="text-stake-piv"] {
-  color: #262626;
-  font-size: 16px;
-  padding: 10px;
-  border-bottom: 5px solid #afafaf;
+  color: #8cb244;
+  font-size:16px;
+  padding:10px;
+  border-bottom: 5px solid #8cb244;
 }
 
 *[cssClass="text-stake-piv-disable"] {
-  color: #d7d5da;
-  font-size: 16px;
-  padding: 10px;
-  border-bottom: 5px solid #bdbdbd;
+  color:#6b6b6b;
+  font-size:16px;
+  padding:10px;
+  border-bottom: 5px solid #727272;
 }
 
 *[cssClass="text-stake-mnrewards"] {
-  color: #6666ff;
-  font-size: 16px;
-  padding: 10px;
-  border-bottom: 5px solid #6666ff;
+  color: #5dbcfc;
+  font-size:16px;
+  padding:10px;
+  border-bottom: 5px solid #5dbcfc;
 }
 
 *[cssClass="text-stake-mnrewards-disable"] {
-  color: #d7d5da;
-  font-size: 16px;
-  padding: 10px;
-  border-bottom: 5px solid #bdbdbd;
+  color:#505050;
+  font-size:16px;
+  padding:10px;
+  border-bottom: 5px solid #444444;
 }
 
 *[cssClass="legend-chart"] {
-  color: #9c9c9c;
-  font-size: 16px;
+  color:#262626;
+  font-size:16px;
 }
 
 *[cssClass="text-chart-mnrewards"] {
-  color: #6666ff;
-  font-size: 16px;
-  padding-left: 4px;
+  color: #5dbcfc;
+  font-size:16px;
+  padding-left:4px;
 }
 
 *[cssClass="text-chart-piv"] {
-  color: #262626;
-  font-size: 16px;
-  padding-left: 4px;
+  color:#8cb244;
+  font-size:16px;
+  padding-left:4px;
 }
 
-*[cssClass="square-chart-zpiv"] {
-  background-color: #8bd1ff;
-  border: none;
+*[cssClass="square-chart-mnrewards"] {
+  background-color: #5dbcfc;
+  border:none;
 }
 
 *[cssClass="square-chart-piv"] {
-  background-color: #88cfff;
-  border: none;
+  background-color:#8cb244;
+  border:none;
 }
 
 *[cssClass="text-amount-grey-big"] {
@@ -2199,6 +2197,7 @@ QComboBox QAbstractItemView::item:selected QPushButton:hover {
 /*HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
 HH       RADIO BUTTON
 HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
+
 QRadioButton:checked {
   color: #2ea1ff;
   font-size: 20px;

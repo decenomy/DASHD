@@ -45,7 +45,8 @@
   <defs
      id="defs15">
     <style
-       type="text/css">
+       type="text/css"
+       id="style2">
             .cls-1,.cls-2{fill:#bababa}.cls-1{fill-rule:evenodd;opacity:.5}.cls-3{filter:url(#switch_button)}
         </style>
     <filter
