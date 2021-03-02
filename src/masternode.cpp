@@ -541,10 +541,6 @@ bool CMasternodeBroadcast::Sign(const CKey& key, const CPubKey& pubKey)
         strMessage = GetOldStrMessage();
     }
 
-    std::string strError = "";
-    nMessVersion = MessageVersion::MESS_VER_HASH;
-    const std::string strMessage = GetSignatureHash().GetHex();
-
     if (!CMessageSigner::SignMessage(strMessage, vchSig, key)) {
         return error("%s : SignMessage() (nMessVersion=%d) failed", __func__, nMessVersion);
     }
