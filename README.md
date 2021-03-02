@@ -9,10 +9,10 @@ Dash Diamond Coin Core integration/staging repository
 • Liquimine: 500,000 DASHD
 • Block Time: 60 Seconds    
 • Maturity: 100 Confirmations  
-• Prefix: DASHD adresses start with the capital letter "D" 
-• Ports: 12341 (p2p) / 23452 (rpc) 
-• Genesis Block Time: Aug 29 2019 03:43:26 
-• New Dev Team: Jan 24 2021
+• Prefix: DASHD adresses start with the capital letter "D"  
+• Ports: 12341 (p2p) / 23452 (rpc)  
+• Genesis Block Time: Aug 29 2019 03:43:26  
+• New Dev Team: Jan 24 2021  
 
 • Explorer https://chains.trittium.cc/DASHD/blocks
 
