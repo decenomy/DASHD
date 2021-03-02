@@ -207,13 +207,13 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
     // Make sure to create the correct block version
     const Consensus::Params& consensus = Params().GetConsensus();
 
-    if (nHeight >= consensus.NetworkUpgradeActive(nHeight, Consensus::UPGRADE_V4_0))
+    if (consensus.NetworkUpgradeActive(nHeight, Consensus::UPGRADE_V4_0))
         pblock->nVersion = 7;
-    else if (nHeight >= consensus.NetworkUpgradeActive(nHeight, Consensus::UPGRADE_V3_4))
+    else if (consensus.NetworkUpgradeActive(nHeight, Consensus::UPGRADE_V3_4))
         pblock->nVersion = 6;
-    else if (nHeight >= consensus.NetworkUpgradeActive(nHeight, Consensus::UPGRADE_BIP65))
+    else if (consensus.NetworkUpgradeActive(nHeight, Consensus::UPGRADE_BIP65))
         pblock->nVersion = 5;
-    else if (nHeight >= consensus.NetworkUpgradeActive(nHeight, Consensus::UPGRADE_ZC))
+    else if (consensus.NetworkUpgradeActive(nHeight, Consensus::UPGRADE_ZC))
         pblock->nVersion = 4;
     else
         pblock->nVersion = 3;
