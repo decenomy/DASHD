@@ -81,8 +81,7 @@ bool CSignedMessage::Sign(const CKey& key, const CPubKey& pubKey)
 {
     std::string strError = "";
 
-    //it's too new, wait for a cycle
-    if (Params().GetConsensus().NetworkUpgradeActive(chainActive.Tip()->nHeight, Consensus::UPGRADE_V3_4)) {
+    if (Params().GetConsensus().NetworkUpgradeActive(chainActive.Height(), Consensus::UPGRADE_V3_4)) {
         nMessVersion = MessageVersion::MESS_VER_HASH;
         uint256 hash = GetSignatureHash();
 
