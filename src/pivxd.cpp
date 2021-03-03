@@ -120,7 +120,7 @@ bool AppInit(int argc, char* argv[])
 #ifndef WIN32
         fDaemon = GetBoolArg("-daemon", false);
         if (fDaemon) {
-            fprintf(stdout, "Sapphire server starting\n");
+            fprintf(stdout, "Dash Diamond server starting\n");
 
             // Daemonize
             pid_t pid = fork();
