@@ -5727,10 +5727,6 @@ Selecteer minder invoeren met muntcontrole.</translation>
         <translation>Copyright (C) 2015-%i The PIVX Kernontwikkelaars</translation>
     </message>
     <message>
-        <source>Copyright (C) 2020-%i Sapphire Core Developers</source>
-        <translation>Copyright (C) 2020-%i Sapphire Kernontwikkelaars</translation>
-    </message>
-    <message>
         <source>Copyright (C) 2021-%i The DECENOMY Core Developers</source>
         <translation>Copyright (C) 2021-%i The DECENOMY Kernontwikkelaars</translation>
     </message>

@@ -53,7 +53,7 @@ class ReorgStakeTest(PivxTestFramework):
 
     def check_money_supply(self, expected_piv, expected_zpiv):
         g_info = [self.nodes[i].getinfo() for i in range(self.num_nodes)]
-        # verify that nodes have the expected PIV and zSAPP supply
+        # verify that nodes have the expected PIV and zDASHD supply
         for node in g_info:
             assert_equal(node['moneysupply'], DecimalAmt(expected_piv))
             for denom in node['zPIVsupply']:
@@ -68,9 +68,9 @@ class ReorgStakeTest(PivxTestFramework):
                     return True, x
             return False, None
 
-        # Check PIV and zSAPP supply at the beginning
+        # Check PIV and zDASHD supply at the beginning
         # ------------------------------------------
-        # zSAPP supply: 2 coins for each denomination
+        # zDASHD supply: 2 coins for each denomination
         expected_zpiv_supply = {
             "1": 2,
             "5": 10,
@@ -230,8 +230,8 @@ class ReorgStakeTest(PivxTestFramework):
         res, utxo = findUtxoInList(stakeinput["txid"], stakeinput["vout"], self.nodes[0].listunspent())
         assert (not res or not utxo["spendable"])
 
-        # Verify that PIV and zSAPP supplies were properly updated after the spends and reorgs
-        self.log.info("Check SAPP and zSAPP supply...")
+        # Verify that PIV and zDASHD supplies were properly updated after the spends and reorgs
+        self.log.info("Check DASHD and zDASHD supply...")
         expected_money_supply += 250.0 * (self.nodes[1].getblockcount() - 330)
         spent_coin_0 = mints[0]["denomination"]
         spent_coin_1 = mints[1]["denomination"]

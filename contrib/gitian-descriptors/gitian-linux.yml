@@ -33,7 +33,7 @@ packages:
 - "ca-certificates"
 - "python3"
 remotes:
-- "url": "https://github.com/sappcoin-com/SAPP"
+- "url": "https://github.com/Dash-Diamond/DASHD"
   "dir": "pivx"
 files: []
 script: |

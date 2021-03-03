@@ -5728,10 +5728,6 @@ Portafoglio Dash Diamond Core.</translation>
         <translation>Copyright (C) 2015-%i Gli sviluppatori di PIVX Core</translation>
     </message>
     <message>
-        <source>Copyright (C) 2020-%i Sapphire Core Developers</source>
-        <translation>Copyright (C) 2020-%i Gli sviluppatori di Sapphire Core</translation>
-    </message>
-    <message>
         <source>Copyright (C) 2021-%i The DECENOMY Core Developers</source>
         <translation>Copyright (C) 2020-%i Gli sviluppatori di DECENOMY Core </translation>
     </message>

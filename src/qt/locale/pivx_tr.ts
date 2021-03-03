@@ -4701,10 +4701,6 @@ Hoşgeldiniz</translation>
         <translation>Copyright (C) 2015-%i The PIVX Core Developers</translation>
     </message>
     <message>
-        <source>Copyright (C) 2020-%i Sapphire Core Developers</source>
-        <translation>Copyright (C) 2020-%i Sapphire Core Developers</translation>
-    </message>
-    <message>
         <source>Copyright (C) 2021-%i The DECENOMY Core Developers</source>
         <translation>Copyright (C) 2021-%i The DECENOMY Core Developers</translation>
     </message>

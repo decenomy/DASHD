@@ -4811,10 +4811,6 @@ NOTE: 업그레이드 이후에는
         <translation>Copyright (C) 2015-%i The PIVX Core 개발자</translation>
     </message>
     <message>
-        <source>Copyright (C) 2020-%i Sapphire Core Developers</source>
-        <translation>Copyright (C) 2020-%i Sapphire Core 개발자</translation>
-    </message>
-    <message>
         <source>Copyright (C) 2021-%i The DECENOMY Core Developers</source>
         <translation>Copyright (C) 2021-%i The DECENOMY Core 개발자</translation>
     </message>

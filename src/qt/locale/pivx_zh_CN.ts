@@ -5205,8 +5205,8 @@ backup will be created.
         <translation>版权所有(C) 2014-%i的达世核心开发者</translation>
     </message>
     <message>
-        <source>Copyright (C) 2015-%i The Sapphire Core Developers</source>
-        <translation>版权所有(C) 2015-%i Sapphire核心开发者</translation>
+        <source>Copyright (C) 2015-%i The PIVX Core Developers</source>
+        <translation>版权所有(C) 2015-%i PIVX核心开发者</translation>
     </message>
     <message>
         <source>Copyright (C) 2021-%i The DECENOMY Core Developers</source>

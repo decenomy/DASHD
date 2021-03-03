@@ -121,7 +121,6 @@ EXPECTED_HOLDER_NAMES = [
     "The Dash Developers\n",
     "The Dash Core developers\n",
     "The PIVX developers\n",
-	"The Sapphire Coin Core developers\n",
 	"The The DECENOMY Coin Core developers\n",
     "The PPCoin developers\n",
     "The NovaCoin Developers",

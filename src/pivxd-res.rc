@@ -17,7 +17,7 @@ BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
             VALUE "CompanyName",        "dashdiamond"
-            VALUE "FileDescription",    "dashdiamondd (OSS daemon/client for Sapphire)"
+            VALUE "FileDescription",    "dashdiamondd (OSS daemon/client for Dash Diamond)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "dashdiamondd"
             VALUE "LegalCopyright",     COPYRIGHT_STR

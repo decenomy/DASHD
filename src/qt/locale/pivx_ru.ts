@@ -5676,10 +5676,6 @@ Select fewer inputs with coin control.</source>
         <translation>Copyright (C) 2015-%i Разработчики PIVX Core</translation>
     </message>
     <message>
-        <source>Copyright (C) 2020-%i Sapphire Core Developers</source>
-        <translation>Copyright (C) 2020-%i Разработчики Sapphire Core</translation>
-    </message>
-    <message>
         <source>Copyright (C) 2021-%i The DECENOMY Core Developers</source>
         <translation>Copyright (C) 2021-%i Разработчики DECENOMY Core</translation>
     </message>
