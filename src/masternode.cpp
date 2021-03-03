@@ -212,9 +212,11 @@ void CMasternode::Check(bool forceCheck)
         return;
     }
 
-    if (lastPing.sigTime - sigTime < MASTERNODE_MIN_MNP_SECONDS) {
-        activeState = MASTERNODE_PRE_ENABLED;
-        return;
+    if(Params().GetConsensus().NetworkUpgradeActive(chainActive.Height(), Consensus::UPGRADE_V3_4)) {
+        if (lastPing.sigTime - sigTime < MASTERNODE_MIN_MNP_SECONDS) {
+            activeState = MASTERNODE_PRE_ENABLED;
+            return;
+        }
     }
 
     if (!unitTest) {
@@ -530,27 +532,40 @@ bool CMasternodeBroadcast::Create(CTxIn txin, CService service, CKey keyCollater
 
 bool CMasternodeBroadcast::Sign(const CKey& key, const CPubKey& pubKey)
 {
+    sigTime = GetAdjustedTime();
+
     std::string strError = "";
     std::string strMessage;
 
     if(Params().GetConsensus().NetworkUpgradeActive(chainActive.Height(), Consensus::UPGRADE_V3_4)) {
         nMessVersion = MessageVersion::MESS_VER_HASH;
         strMessage = GetSignatureHash().GetHex();
+
+        if (!CMessageSigner::SignMessage(strMessage, vchSig, key)) {
+            return error("%s : SignMessage() (nMessVersion=%d) failed", __func__, nMessVersion);
+        }
+
+        if (!CMessageSigner::VerifyMessage(pubKey, vchSig, strMessage, strError)) {
+            return error("%s : VerifyMessage() (nMessVersion=%d) failed, error: %s\n",
+                    __func__, nMessVersion, strError);
+        }
+
+        return true;
     } else {
         nMessVersion = MessageVersion::MESS_VER_STRMESS;
         strMessage = GetOldStrMessage();
-    }
 
-    if (!CMessageSigner::SignMessage(strMessage, vchSig, key)) {
-        return error("%s : SignMessage() (nMessVersion=%d) failed", __func__, nMessVersion);
-    }
+        CHashWriter ss(SER_GETHASH, 0);
+        ss << strMessageMagic;
+        ss << strMessage;
 
-    if (!CMessageSigner::VerifyMessage(pubKey, vchSig, strMessage, strError)) {
-        return error("%s : VerifyMessage() (nMessVersion=%d) failed, error: %s\n",
-                __func__, nMessVersion, strError);
-    }
+        if (!key.SignCompact(ss.GetHash(), vchSig)) {
+            return error("%s : VerifyMessage() (nMessVersion=%d) failed, error: Signing failed.\n",
+                    __func__, nMessVersion);
+        }
 
-    return true;
+        return true;
+    }
 }
 
 bool CMasternodeBroadcast::Sign(const std::string strSignKey)
