@@ -11,11 +11,11 @@ fi
 	sudo apt install git zip unzip build-essential libtool bsdmainutils autotools-dev autoconf pkg-config automake python3 curl g++-mingw-w64-x86-64 libqt5svg5-dev -y
 	echo "1" | sudo update-alternatives --config x86_64-w64-mingw32-g++
 
-# Clone SAPP code from SAPP official Github repository
-	git clone https://github.com/sappcoin-com/SAPP
+# Clone code from official Github repository
+	git clone https://github.com/Dash-Diamond/DASHD.git
 
-# Entering SAPP directory
-	cd SAPP
+# Entering directory
+	cd DASHD
 
 # Compile dependencies
 	cd depends
@@ -24,7 +24,7 @@ fi
 	make -j$(echo $CPU_CORES) HOST=x86_64-w64-mingw32 
 	cd ..
 
-# Compile SAPP
+# Compile
 	chmod +x share/genbuild.sh
 	chmod +x autogen.sh
 	./autogen.sh
@@ -33,6 +33,6 @@ fi
 	cd ..
 
 # Create zip file of binaries
-	cp SAPP/src/sapphired.exe SAPP/src/sapphire-cli.exe SAPP/src/sapphire-tx.exe SAPP/src/qt/sapphire-qt.exe .
-	zip SAPP-Windows.zip sapphired.exe sapphire-cli.exe sapphire-tx.exe sapphire-qt.exe
-	rm -f sapphired.exe sapphire-cli.exe sapphire-tx.exe sapphire-qt.exe
+	cp DASHD/src/dashdiamondd.exe DASHD/src/dashdiamond-cli.exe DASHD/src/dashdiamond-tx.exe DASHD/src/qt/dashdiamond-qt.exe .
+	zip DASHD-Windows.zip dashdiamondd.exe dashdiamond-cli.exe dashdiamond-tx.exe dashdiamond-qt.exe
+	rm -f dashdiamondd.exe dashdiamond-cli.exe dashdiamond-tx.exe dashdiamond-qt.exe

@@ -10,11 +10,11 @@ fi
 	sudo apt update
 	sudo apt install git zip unzip build-essential libtool bsdmainutils autotools-dev autoconf pkg-config automake python3 python3-setuptools libqt5svg5-dev -y
 
-# Clone SAPP code from SAPP official Github repository
-	git clone https://github.com/sappcoin-com/SAPP
+# Clone code from official Github repository
+	git clone https://github.com/Dash-Diamond/DASHD.git
 
-# Entering SAPP directory
-	cd SAPP
+# Entering directory
+	cd DASHD
 
 # Compile dependencies
 	cd depends
@@ -23,7 +23,7 @@ fi
 	make -j$(echo $CPU_CORES) HOST=x86_64-pc-linux-gnu 
 	cd ..
 
-# Compile SAPP
+# Compile
 	chmod +x share/genbuild.sh
 	chmod +x autogen.sh
 	./autogen.sh
@@ -32,6 +32,6 @@ fi
 	cd ..
 
 # Create zip file of binaries
-	cp SAPP/src/sapphired SAPP/src/sapphire-cli SAPP/src/sapphire-tx SAPP/src/qt/sapphire-qt .
-	zip SAPP-Linux.zip sapphired sapphire-cli sapphire-tx sapphire-qt
-	rm -f sapphired sapphire-cli sapphire-tx sapphire-qt
+	cp DASHD/src/dashdiamondd DASHD/src/dashdiamond-cli DASHD/src/dashdiamond-tx DASHD/src/qt/dashdiamond-qt .
+	zip DASHD-Linux.zip dashdiamondd dashdiamond-cli dashdiamond-tx dashdiamond-qt
+	rm -f dashdiamondd dashdiamond-cli dashdiamond-tx dashdiamond-qt

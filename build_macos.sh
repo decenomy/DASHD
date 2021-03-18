@@ -6,18 +6,18 @@ then
 	CPU_CORES=1
 fi
 
-# Clone SAPP code from SAPP official Github repository
-	git clone https://github.com/sappcoin-com/SAPP
+# Clone code from official Github repository
+	git clone https://github.com/Dash-Diamond/DASHD.git
 
-# Entering SAPP directory
-	cd SAPP
+# Entering directory
+	cd DASHD
 
 # Compile dependencies
 	cd depends
 	make -j$(echo $CPU_CORES) HOST=x86_64-apple-darwin17 
 	cd ..
 
-# Compile SAPP
+# Compile
 	./autogen.sh
 	./configure --prefix=$(pwd)/depends/x86_64-apple-darwin17 --enable-cxx --enable-static --disable-shared --disable-debug --disable-tests --disable-bench
 	make -j$(echo $CPU_CORES) HOST=x86_64-apple-darwin17
@@ -25,6 +25,6 @@ fi
 	cd ..
 
 # Create zip file of binaries
-	cp SAPP/src/sapphired SAPP/src/sapphire-cli SAPP/src/sapphire-tx SAPP/src/qt/sapphire-qt SAPP/SAPP.dmg .
-	zip SAPP-MacOS.zip sapphired sapphire-cli sapphire-tx sapphire-qt SAPP.dmg
-	rm -f sapphired sapphire-cli sapphire-tx sapphire-qt SAPP.dmg
+	cp DASHD/src/dashdiamondd DASHD/src/dashdiamond-cli DASHD/src/dashdiamond-tx DASHD/src/qt/dashdiamond-qt DASHD/DashDiamond-Core.dmg .
+	zip DASHD-MacOS.zip dashdiamondd dashdiamond-cli dashdiamond-tx dashdiamond-qt DashDiamond-Core.dmg 
+	rm -f dashdiamondd dashdiamond-cli dashdiamond-tx dashdiamond-qt DashDiamond-Core.dmg
