@@ -2749,7 +2749,7 @@ bool CWallet::CreateCoinStake(
 
         // Add block reward to the credit
         nCredit += CMasternode::GetBlockValue(pindexPrev->nHeight + 1);
-        CAmount nMasternodeCredit = CMasternode::GetMasternodePayment(pindexPrev->nHeight + 1);
+        CAmount nMasternodeCredit = CMasternode::GetMasternodePayment();
 
         // Create the output transaction(s)
         std::vector<CTxOut> vout;
