@@ -1,4 +1,4 @@
-DashDiamond Standard wallet repository
+DashDiamond wallet repository
 =====================================
 
 ### Coin Specs
