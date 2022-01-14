@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2016 The Bitcoin Core developers
-// Copyright (c) 2021 The DECENOMY Core Developers
+// Copyright (c) 2021-2022 The DECENOMY Core Developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -39,6 +39,7 @@ enum UpgradeIndex : uint32_t {
     UPGRADE_STAKE_MIN_DEPTH_V2,
     UPGRADE_MASTERNODE_RANK_V2,
     UPGRADE_COINBASE_MATURITY_V2,
+    UPGRADE_TIMESPAN_V3,
     // NOTE: Also add new upgrades to NetworkUpgradeInfo in upgrades.cpp
     UPGRADE_TESTDUMMY,
     MAX_NETWORK_UPGRADES,
@@ -101,7 +102,6 @@ struct Params {
     int nCoinbaseMaturityV2;
     int nFutureTimeDriftPoW;
     int nFutureTimeDriftPoS;
-    int nMasternodeCountDrift;
     CAmount nMaxMoneyOut;
     int nPoolMaxTransactions;
     int64_t nProposalEstablishmentTime;
@@ -110,9 +110,13 @@ struct Params {
 	int nStakeMinDepthV2;
     int64_t nTargetTimespan;
     int64_t nTargetTimespanV2;
+    int64_t nTargetTimespanV3;
     int64_t nTargetSpacing;
 	int64_t nTargetSpacingV2;
     int nTimeSlotLength;
+
+    // burn addresses
+    std::map<std::string, int> mBurnAddresses = {};
 
     // spork keys
     std::string strSporkPubKey;
@@ -131,7 +135,7 @@ struct Params {
     // Map with network updates
     NetworkUpgrade vUpgrades[MAX_NETWORK_UPGRADES];
 
-    int64_t TargetTimespan(const int nHeight) const { return TargetSpacing(nHeight) * (IsTimeProtocolV2(nHeight) ? nTargetTimespanV2 : nTargetTimespan); }
+    int64_t TargetTimespan(const int nHeight) const { return TargetSpacing(nHeight) * (IsTimeProtocolV2(nHeight) ? (NetworkUpgradeActive(nHeight, UPGRADE_TIMESPAN_V3) ? nTargetTimespanV3 : nTargetTimespanV2) : nTargetTimespan); }
     int64_t TargetSpacing(const int nHeight) const { return NetworkUpgradeActive(nHeight, UPGRADE_NEW_TARGET_SPACING) ? nTargetSpacingV2 : nTargetSpacing; }
     int CoinbaseMaturity(const int nHeight) const { return NetworkUpgradeActive(nHeight, UPGRADE_COINBASE_MATURITY_V2) ? nCoinbaseMaturityV2 : nCoinbaseMaturity; }
     uint256 ProofOfStakeLimit(const int nHeight) const { return IsTimeProtocolV2(nHeight) ? posLimitV2 : posLimitV1; }
@@ -167,6 +171,13 @@ struct Params {
             NetworkUpgradeActive(contextHeight, Consensus::UPGRADE_STAKE_MIN_DEPTH_V2) ? 
                 nStakeMinDepthV2 : nStakeMinDepth
         );
+    }
+
+    bool IsBurnAddress(const std::string strAddress, const int nHeight) 
+    {
+        return 
+            mBurnAddresses.find(strAddress) != mBurnAddresses.end() &&
+            mBurnAddresses[strAddress] < nHeight;
     }
 
     /*
