@@ -185,6 +185,8 @@ void CMasternode::Check(bool forceCheck)
 {
     if (ShutdownRequested()) return;
 
+    const Consensus::Params& consensus = Params().GetConsensus();
+
     // todo: add LOCK(cs) but be careful with the AcceptableInputs() below that requires cs_main.
 
     if (!forceCheck && (GetTime() - lastTimeChecked < MASTERNODE_CHECK_SECONDS)) return;
@@ -217,7 +219,7 @@ void CMasternode::Check(bool forceCheck)
         CMutableTransaction tx = CMutableTransaction();
         CScript dummyScript;
         dummyScript << ToByteVector(pubKeyCollateralAddress) << OP_CHECKSIG;
-        CTxOut vout = CTxOut((CMasternode::GetMasternodeNodeCollateral(chainActive.Height()) - 0.01 * COIN), dummyScript);
+        CTxOut vout = CTxOut((CMasternode::GetMinMasternodeCollateral() - 0.01 * COIN), dummyScript);
         tx.vin.push_back(vin);
         tx.vout.push_back(vout);
         {
@@ -229,6 +231,19 @@ void CMasternode::Check(bool forceCheck)
                 return;
             }
         }
+
+        // ----------- burn address scanning -----------
+        if (!consensus.mBurnAddresses.empty()) {
+            
+            std::string addr = EncodeDestination(pubKeyCollateralAddress.GetID());
+
+            if (consensus.mBurnAddresses.find(addr) != consensus.mBurnAddresses.end() &&
+                consensus.mBurnAddresses.at(addr) < chainActive.Height()
+            ) {
+                activeState = MASTERNODE_VIN_SPENT;
+                return;
+            }
+        }
     }
 
     activeState = MASTERNODE_ENABLED; // OK
@@ -236,11 +251,8 @@ void CMasternode::Check(bool forceCheck)
 
 int64_t CMasternode::SecondsSincePayment()
 {
-    CScript pubkeyScript;
-    pubkeyScript = GetScriptForDestination(pubKeyCollateralAddress.GetID());
-
     int64_t sec = (GetAdjustedTime() - GetLastPaid());
-    int64_t month = 60 * 60 * 24 * 30;
+    int64_t month = MONTH_IN_SECONDS;
     if (sec < month) return sec; //if it's less than 30 days, give seconds
 
     CHashWriter ss(SER_GETHASH, PROTOCOL_VERSION);
@@ -257,18 +269,15 @@ int64_t CMasternode::GetLastPaid()
     const CBlockIndex* BlockReading = GetChainTip();
     if (BlockReading == nullptr) return false;
 
-    CScript mnpayee;
-    mnpayee = GetScriptForDestination(pubKeyCollateralAddress.GetID());
+    CScript mnpayee = GetScriptForDestination(pubKeyCollateralAddress.GetID());
 
-    CHashWriter ss(SER_GETHASH, PROTOCOL_VERSION);
-    ss << vin;
-    ss << sigTime;
-    uint256 hash = ss.GetHash();
+    int nMnCount = 
+        mnodeman.CountEnabled() *
+        (sporkManager.IsSporkActive(SPORK_112_MASTERNODE_LAST_PAID_V2) ? 
+            2 : // go a little bit further
+            1.25
+        );
 
-    // use a deterministic offset to break a tie -- 2.5 minutes
-    int64_t nOffset = hash.GetCompact(false) % 150;
-
-    int nMnCount = mnodeman.CountEnabled() * 1.25;
     int n = 0;
     for (unsigned int i = 1; BlockReading && BlockReading->nHeight > 0; i++) {
         if (n >= nMnCount) {
@@ -277,12 +286,30 @@ int64_t CMasternode::GetLastPaid()
         n++;
 
         if (masternodePayments.mapMasternodeBlocks.count(BlockReading->nHeight)) {
-            /*
-                Search for this payee, with at least 2 votes. This will aid in consensus allowing the network
-                to converge on the same payees quickly, then keep the same schedule.
-            */
-            if (masternodePayments.mapMasternodeBlocks[BlockReading->nHeight].HasPayeeWithVotes(mnpayee, 2)) {
-                return BlockReading->nTime + nOffset;
+            if(sporkManager.IsSporkActive(SPORK_112_MASTERNODE_LAST_PAID_V2)) {
+                /*
+                    Search for this payee, on the blockchain
+                */
+                if (masternodePayments.mapMasternodeBlocks[BlockReading->nHeight].HasPaidPayee(mnpayee)) {
+                    return BlockReading->nTime; // doesn't need the offset because it is deterministically read from the blockchain
+                }
+            } else {
+
+                CHashWriter ss(SER_GETHASH, PROTOCOL_VERSION);
+                ss << vin;
+                ss << sigTime;
+                uint256 hash = ss.GetHash();
+
+                // use a deterministic offset to break a tie -- 2.5 minutes
+                int64_t nOffset = hash.GetCompact(false) % 150;
+
+                /*
+                    Search for this payee, with at least 2 votes. This will aid in consensus allowing the network
+                    to converge on the same payees quickly, then keep the same schedule.
+                */
+                if (masternodePayments.mapMasternodeBlocks[BlockReading->nHeight].HasPayeeWithVotes(mnpayee, 2)) {
+                    return BlockReading->nTime + nOffset;
+                }
             }
         }
 
@@ -308,12 +335,12 @@ bool CMasternode::IsInputAssociatedWithPubkey() const
 {
     CScript payee;
     payee = GetScriptForDestination(pubKeyCollateralAddress.GetID());
-
+    
     CTransaction txVin;
     uint256 hash;
     if(GetTransaction(vin.prevout.hash, txVin, hash, true)) {
         for (CTxOut out : txVin.vout) {
-            if (out.nValue == CMasternode::GetMasternodeNodeCollateral(chainActive.Height()) && out.scriptPubKey == payee) return true;
+            if (CMasternode::CheckMasternodeCollateral(out.nValue) && out.scriptPubKey == payee) return true;
         }
     }
 
@@ -322,11 +349,19 @@ bool CMasternode::IsInputAssociatedWithPubkey() const
 
 CAmount CMasternode::GetMasternodeNodeCollateral(int nHeight) 
 {
-    if (nHeight > 900000) return 10000 * COIN;
-    if (nHeight > 800000) return  7000 * COIN;
-    if (nHeight > 700000) return  5000 * COIN;
-    if (nHeight > 600000) return  3000 * COIN;
-    if (nHeight > 500000) return  2000 * COIN;
+    if (nHeight > 1700000) return 50000 * COIN;
+    if (nHeight > 1600000) return 45000 * COIN;
+    if (nHeight > 1500000) return 40000 * COIN;
+    if (nHeight > 1400000) return 35000 * COIN;
+    if (nHeight > 1300000) return 30000 * COIN;
+    if (nHeight > 1200000) return 25000 * COIN;
+    if (nHeight > 1100000) return 20000 * COIN;
+    if (nHeight > 1000000) return 15000 * COIN;
+    if (nHeight >  900000) return 10000 * COIN;
+    if (nHeight >  800000) return  7000 * COIN;
+    if (nHeight >  700000) return  5000 * COIN;
+    if (nHeight >  600000) return  3000 * COIN;
+    if (nHeight >  500000) return  2000 * COIN;
     
     return  1000 * COIN;
 }
@@ -359,6 +394,8 @@ CAmount CMasternode::GetBlockValue(int nHeight)
 
 CAmount CMasternode::GetMasternodePayment(int nHeight)
 {
+    if (nHeight > 905000) return GetBlockValue(nHeight) * 65 / 100;
+    if (nHeight > 900537) return 0; // give everybody a fair chance to get their MN online after the hack
     if (nHeight > 525000) return GetBlockValue(nHeight) * 65 / 100;
     if (nHeight > 292500) return GetBlockValue(nHeight) * 80 / 100;
     if (nHeight > 292000) return                       1001 * COIN; // +1001 LiquiMining
@@ -691,7 +728,7 @@ bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
     CMutableTransaction tx = CMutableTransaction();
     CScript dummyScript;
     dummyScript << ToByteVector(pubKeyCollateralAddress) << OP_CHECKSIG;
-    CTxOut vout = CTxOut((CMasternode::GetMasternodeNodeCollateral(chainActive.Height()) - 0.01 * COIN), dummyScript);
+    CTxOut vout = CTxOut((CMasternode::GetMinMasternodeCollateral() - 0.01 * COIN), dummyScript);
     tx.vin.push_back(vin);
     tx.vout.push_back(vout);
 
@@ -737,11 +774,6 @@ bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
         if (pConfIndex->GetBlockTime() > sigTime) {
             LogPrint(BCLog::MASTERNODE,"mnb - Bad sigTime %d for Masternode %s (%i conf block is at %d)\n",
                 sigTime, vin.prevout.hash.ToString(), MASTERNODE_MIN_CONFIRMATIONS, pConfIndex->GetBlockTime());
-            return false;
-        }
-        if (GetMasternodeNodeCollateral(nConfHeight) != GetMasternodeNodeCollateral(chainActive.Height())) {
-            LogPrint(BCLog::MASTERNODE,"mnb - Wrong collateral transaction value of %d for Masternode %s (%i conf block is at %d)\n",
-                GetMasternodeNodeCollateral(nConfHeight) / COIN, vin.prevout.hash.ToString(), MASTERNODE_MIN_CONFIRMATIONS, pConfIndex->GetBlockTime());
             return false;
         }
     }

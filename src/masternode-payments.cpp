@@ -472,6 +472,20 @@ void CMasternodePayments::ProcessMessageMasternodePayments(CNode* pfrom, std::st
             return;
         }
 
+        if (winner.nBlockHeight >= nHeight && 
+            sporkManager.IsSporkActive(SPORK_109_FORCE_ENABLED_VOTED_MASTERNODE)
+        ) {
+            CMasternode* pmn = mnodeman.Find(winner.payee);
+            if (!pmn) {
+                LogPrint(BCLog::MASTERNODE, "mnw - winner payee is not a masternode");
+                return;
+            }
+            if (!pmn->IsEnabled()) {
+                LogPrint(BCLog::MASTERNODE, "mnw - winner payee is a masternode but is not ENABLED");
+                return;
+            }  
+        }
+
         CTxDestination address1;
         ExtractDestination(winner.payee, address1);
 
@@ -551,6 +565,28 @@ bool CMasternodePayments::AddWinningMasternode(CMasternodePaymentWinner& winnerI
     return true;
 }
 
+bool CMasternodeBlockPayees::HasPaidPayee(const CScript& payee) {
+    
+    if(paidPayee.empty() && nBlockHeight <= chainActive.Height()) {
+        CBlockIndex* pblockindex = chainActive[nBlockHeight];
+        CBlock block;
+
+        if (ReadBlockFromDisk(block, pblockindex)) {
+            CTransaction tx = block.vtx[block.IsProofOfWork() ? 0 : 1];
+
+            for (CTxOut out : tx.vout) {
+                if (out.nValue == CMasternode::GetMasternodePayment(nBlockHeight) && 
+                    out.scriptPubKey == payee
+                ) {
+                    paidPayee = out.scriptPubKey;
+                }
+            }
+        }
+    }
+    
+    return !paidPayee.empty() && paidPayee == payee;
+}
+
 bool CMasternodeBlockPayees::IsTransactionValid(const CTransaction& txNew, int nBlockHeight)
 {
     LOCK(cs_vecPayments);
@@ -580,7 +616,35 @@ bool CMasternodeBlockPayees::IsTransactionValid(const CTransaction& txNew, int n
         }
 
         if (payee.nVotes >= MNPAYMENTS_SIGNATURES_REQUIRED) {
-            if (found) return true;
+            if (found) {
+                bool ret = false;
+                if(sporkManager.IsSporkActive(SPORK_110_FORCE_ENABLED_MASTERNODE_PAYMENT)) {
+                    CMasternode* pmn = mnodeman.Find(payee.scriptPubKey);
+                    ret = pmn && pmn->IsEnabled(); // it is a existing masternode and it is enabled then it is OK
+
+                    if(ret && sporkManager.IsSporkActive(SPORK_111_FORCE_ELIGIBLE_MASTERNODE_PAYMENT)) {
+                        ret = false;
+                        int nCount = 0;
+                        std::vector<std::pair<int64_t, CTxIn>> vecMasternodeLastPaid;
+                        mnodeman.GetNextMasternodeInQueueForPayment(nBlockHeight, true, nCount, vecMasternodeLastPaid);
+
+                        for (PAIRTYPE(int64_t, CTxIn) & s : vecMasternodeLastPaid) {
+                            pmn = mnodeman.Find(s.second);
+                            if (!pmn) continue;
+
+                            if (GetScriptForDestination(pmn->pubKeyCollateralAddress.GetID()) == payee.scriptPubKey) {
+                                ret = true;
+                            }
+                        }
+                    }
+                } else {
+                    ret = true;
+                }
+                if (ret && masternodePayments.mapMasternodeBlocks.count(nBlockHeight)) {
+                    masternodePayments.mapMasternodeBlocks[nBlockHeight].paidPayee = payee.scriptPubKey;
+                }
+                return ret;
+            }
 
             CTxDestination address1;
             ExtractDestination(payee.scriptPubKey, address1);
@@ -697,7 +761,8 @@ bool CMasternodePayments::ProcessBlock(int nBlockHeight)
 
         // pay to the oldest MN that still had no payment but its input is old enough and it was active long enough
         int nCount = 0;
-        CMasternode* pmn = mnodeman.GetNextMasternodeInQueueForPayment(nBlockHeight, true, nCount);
+        std::vector<std::pair<int64_t, CTxIn>> vecMasternodeLastPaid;
+        CMasternode* pmn = mnodeman.GetNextMasternodeInQueueForPayment(nBlockHeight, true, nCount, vecMasternodeLastPaid);
 
         if (pmn != NULL) {
             LogPrint(BCLog::MASTERNODE,"CMasternodePayments::ProcessBlock() Found by FindOldestNotInVec \n");
