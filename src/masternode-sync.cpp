@@ -328,6 +328,7 @@ bool CMasternodeSync::SyncWithNode(CNode* pnode, bool isRegTestNet)
 
     if (pnode->nVersion >= ActiveProtocol()) {
         if (RequestedMasternodeAssets == MASTERNODE_SYNC_LIST) {
+
             LogPrint(BCLog::MASTERNODE, "CMasternodeSync::Process() - lastMasternodeList %lld (GetTime() - MASTERNODE_SYNC_TIMEOUT) %lld\n", lastMasternodeList, GetTime() - MASTERNODE_SYNC_TIMEOUT);
             if (lastMasternodeList > 0 && lastMasternodeList < GetTime() - MASTERNODE_SYNC_TIMEOUT * 2 && RequestedMasternodeAttempt >= MASTERNODE_SYNC_THRESHOLD) { //hasn't received a new item in the last five seconds, so we'll move to the
                 GetNextAsset();
@@ -360,6 +361,12 @@ bool CMasternodeSync::SyncWithNode(CNode* pnode, bool isRegTestNet)
         }
 
         if (RequestedMasternodeAssets == MASTERNODE_SYNC_MNW) {
+
+            if (sporkManager.IsSporkActive(SPORK_112_MASTERNODE_LAST_PAID_V2)) {
+                GetNextAsset();
+                return false;
+            }
+
             if (lastMasternodeWinner > 0 && lastMasternodeWinner < GetTime() - MASTERNODE_SYNC_TIMEOUT * 2 && RequestedMasternodeAttempt >= MASTERNODE_SYNC_THRESHOLD) { //hasn't received a new item in the last five seconds, so we'll move to the
                 GetNextAsset();
                 return false;
@@ -386,6 +393,7 @@ bool CMasternodeSync::SyncWithNode(CNode* pnode, bool isRegTestNet)
             if (RequestedMasternodeAttempt >= MASTERNODE_SYNC_THRESHOLD * 3) return false;
 
             int nMnCount = mnodeman.CountEnabled();
+
             g_connman->PushMessage(pnode, msgMaker.Make(NetMsgType::GETMNWINNERS, nMnCount)); //sync payees
             RequestedMasternodeAttempt++;
             return false;

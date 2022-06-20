@@ -2072,9 +2072,26 @@ DisconnectResult DisconnectBlock(CBlock& block, CBlockIndex* pindex, CCoinsViewC
     // track money
     nMoneySupply -= (nValueOut - nValueIn);
 
-    // clean last paid v2
-    if (masternodePayments.mapMasternodeBlocks.count(pindex->nHeight)) {
-        masternodePayments.mapMasternodeBlocks[pindex->nHeight].paidPayee = CScript();
+    // clean last paid
+    {
+        std::vector<CMasternodePayee> mnpayees;
+
+        {
+            LOCK2(cs_mapMasternodeBlocks, cs_vecPayments);
+
+            if (masternodePayments.mapMasternodeBlocks.count(pindex->nHeight)) {
+                masternodePayments.mapMasternodeBlocks[pindex->nHeight].paidPayee = CScript();
+                mnpayees = masternodePayments.mapMasternodeBlocks[pindex->nHeight].vecPayments;
+            }
+        }
+
+        for(auto mnp : mnpayees) {
+            auto pmn = mnodeman.Find(mnp.scriptPubKey);
+
+            if(pmn) {
+                pmn->lastPaid = UINT64_MAX;
+            }
+        }
     }
 
     // move best block pointer to prevout block

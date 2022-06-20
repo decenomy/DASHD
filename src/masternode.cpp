@@ -80,6 +80,7 @@ CMasternode::CMasternode() :
     nScanningErrorCount = 0;
     nLastScanningErrorBlockHeight = 0;
     lastTimeChecked = 0;
+    lastPaid = UINT64_MAX;
 }
 
 CMasternode::CMasternode(const CMasternode& other) :
@@ -100,6 +101,7 @@ CMasternode::CMasternode(const CMasternode& other) :
     nScanningErrorCount = other.nScanningErrorCount;
     nLastScanningErrorBlockHeight = other.nLastScanningErrorBlockHeight;
     lastTimeChecked = 0;
+    lastPaid = other.lastPaid;
 }
 
 uint256 CMasternode::GetSignatureHash() const
@@ -266,6 +268,8 @@ int64_t CMasternode::SecondsSincePayment()
 
 int64_t CMasternode::GetLastPaid()
 {
+    if(lastPaid != UINT64_MAX) return lastPaid;
+
     const CBlockIndex* BlockReading = GetChainTip();
     if (BlockReading == nullptr) return false;
 
@@ -281,34 +285,41 @@ int64_t CMasternode::GetLastPaid()
     int n = 0;
     for (unsigned int i = 1; BlockReading && BlockReading->nHeight > 0; i++) {
         if (n >= nMnCount) {
-            return 0;
+            lastPaid = 0;
+            return lastPaid;
         }
         n++;
 
-        if (masternodePayments.mapMasternodeBlocks.count(BlockReading->nHeight)) {
-            if(sporkManager.IsSporkActive(SPORK_112_MASTERNODE_LAST_PAID_V2)) {
-                /*
-                    Search for this payee, on the blockchain
-                */
-                if (masternodePayments.mapMasternodeBlocks[BlockReading->nHeight].HasPaidPayee(mnpayee)) {
-                    return BlockReading->nTime; // doesn't need the offset because it is deterministically read from the blockchain
-                }
-            } else {
+        {
+            LOCK(cs_mapMasternodeBlocks);
 
-                CHashWriter ss(SER_GETHASH, PROTOCOL_VERSION);
-                ss << vin;
-                ss << sigTime;
-                uint256 hash = ss.GetHash();
+            if (masternodePayments.mapMasternodeBlocks.count(BlockReading->nHeight)) {
+                if(sporkManager.IsSporkActive(SPORK_112_MASTERNODE_LAST_PAID_V2)) {
+                    /*
+                        Search for this payee, on the blockchain
+                    */
+                    if (masternodePayments.mapMasternodeBlocks[BlockReading->nHeight].HasPaidPayee(mnpayee)) {
+                        lastPaid = BlockReading->nTime; // doesn't need the offset because it is deterministically read from the blockchain
+                        return lastPaid;
+                    }
+                } else {
 
-                // use a deterministic offset to break a tie -- 2.5 minutes
-                int64_t nOffset = hash.GetCompact(false) % 150;
+                    CHashWriter ss(SER_GETHASH, PROTOCOL_VERSION);
+                    ss << vin;
+                    ss << sigTime;
+                    uint256 hash = ss.GetHash();
 
-                /*
-                    Search for this payee, with at least 2 votes. This will aid in consensus allowing the network
-                    to converge on the same payees quickly, then keep the same schedule.
-                */
-                if (masternodePayments.mapMasternodeBlocks[BlockReading->nHeight].HasPayeeWithVotes(mnpayee, 2)) {
-                    return BlockReading->nTime + nOffset;
+                    // use a deterministic offset to break a tie -- 2.5 minutes
+                    int64_t nOffset = hash.GetCompact(false) % 150;
+
+                    /*
+                        Search for this payee, with at least 2 votes. This will aid in consensus allowing the network
+                        to converge on the same payees quickly, then keep the same schedule.
+                    */
+                    if (masternodePayments.mapMasternodeBlocks[BlockReading->nHeight].HasPayeeWithVotes(mnpayee, 2)) {
+                        lastPaid = BlockReading->nTime + nOffset;
+                        return lastPaid;
+                    }
                 }
             }
         }
@@ -320,7 +331,8 @@ int64_t CMasternode::GetLastPaid()
         BlockReading = BlockReading->pprev;
     }
 
-    return 0;
+    lastPaid = 0;
+    return lastPaid;
 }
 
 bool CMasternode::IsValidNetAddr()
