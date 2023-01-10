@@ -70,113 +70,115 @@ static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
     (0, uint256S("00000e474f09929213ecad858b8c24002f8146cb459b98e5f665c27eea85f279"))
-    (7732, uint256S("7593882311894430869c2e213dbae760771869d6498440af665b039a4e44a3cc"))
-    (15465, uint256S("8f736ed9bb886fe59f084ddbd0d9d089d854c4b7c062d6c63b848f420d809bc9"))
-    (23198, uint256S("2830adc10f6bf75d08c1b2e8e9ea6a9cd81fb31020ef5bcb8af9fff7a525f3f4"))
-    (30931, uint256S("18946fb797652972a0600e0db2c0d15344fd52bfedbf138d8775a7cf9a2460fb"))
-    (38664, uint256S("46630076f86b55795668234e0201c9dd903c8b6e1116c6ea17db03958a112f46"))
-    (46397, uint256S("7deb95db22dbea4a22dda2ce7071810b6b865423dcfe9d13cf41ae7478e3d937"))
-    (54130, uint256S("334657474de3a4a55dc2c9ef9b0802f225c14864460dee9d65735680972237a5"))
-    (61863, uint256S("d2d1a6cccdb71997aafb73929e1bc6f3682c16e018d7e14c65f5d2290fd7f44c"))
-    (69596, uint256S("e5d5d62d7123cc79b6fb09110ce62ab48db13a857b0ee9cfe2ead6ec767c12a3"))
-    (77329, uint256S("662c03329ffabecb93bc794bd7854c1176b258d3df484d5f38f2dd72c7d5707a"))
-    (85062, uint256S("0862998c03da003ff30c3505d37e7f79940004c13accc713b7aaeed178cd2cc1"))
-    (92795, uint256S("63cb4379273373c6abe09d2f21c193cb8dde65b3507039de7b5c0344aebaec42"))
-    (100528, uint256S("33eb5609211cdb471b18a786234c97e14e76708cef7e3e1be88c33bacc684900"))
-    (108261, uint256S("d21839b267e2201c7cc69c8eaaeb3f906ff8a8a4697324780eca1212e265594a"))
-    (115994, uint256S("8698e85ba304abbc4c9fad56e22390673303f8a163c0b1999ed978a14faf1f39"))
-    (123727, uint256S("144f1cb5720acfab0d728011cbd05bddcfde12afc7de04c4e2e8db64b5e7330f"))
-    (131460, uint256S("ed70964fca95a976322c5778d17453da3a1d9546ccedd160e2bde90d9cc2db19"))
-    (139193, uint256S("f8d1b9b260817fceec5c77ff5e50a4cf1ac6aa15d39cd6cb8a46f1f6160402de"))
-    (146926, uint256S("0ef6a0f2f3234a0c883e928436530ff44dedfdcd7f171e0b8684d8ce91adcc33"))
-    (154659, uint256S("68702e7f102f0eaaf1d048ef5bea0253bd0ecc37074dfaa6ba4380802acfcb7d"))
-    (162392, uint256S("b49c05d02f32a96d4878cb6bc311846906cf71c88ae0536e773fc32eaf5ce10c"))
-    (170125, uint256S("4a32a61c6fa997e359fa2555a9624f432ebdb44b47d4c29c3fd304de308a51b9"))
-    (177858, uint256S("0b20fcf7e225345231ddd24ce3d165db9e645f2fa5f667298fade35aee3d73ed"))
-    (185591, uint256S("1a02ae3cdb96444bea1daa21fd8d90bb7c404e3ae269ea97b219af0865efb54f"))
-    (193324, uint256S("fec55a98f3ffe1a7482b4af7e75d820c7411ca142cf4cf025880f238bed2ec17"))
-    (201057, uint256S("6099c1d73a50e5e6d674740eae9da8c5a7ecdfa44902f6322a6bad5a140c902b"))
-    (208790, uint256S("1c75d495bf7c326570c03c4cc684eb9fd0ec37da9b84db533292f5d7e4e9f2a3"))
-    (216523, uint256S("08c05d89883ff467b2022f1f3bd7ca19c72026343ce8ac48d6609278d7514251"))
-    (224256, uint256S("6a741e85f18cbbb6d5595822a2ca6542f39c9ced100c7313daf4fee04b170859"))
-    (231989, uint256S("c496642da6af280e90d12172b3991de63459c22f722a4ec3932524fd2e3802f7"))
-    (239722, uint256S("0ba1764d41f35785b282026e14cccc90877666103079b0e9b2a0293257f0593d"))
-    (247455, uint256S("07620ba7897444d064c778fc26056c9054c7e91812ec328d789893bd7ec2fb2c"))
-    (255188, uint256S("e61f6b75da7a010c68f587827d8cd3feebc09ba0ccc1fbe0bc432de3f4a70ca3"))
-    (262921, uint256S("cae39d74ce0650ad925ffffa3b57d8805dc12946fe356b1d804acd9e23451794"))
-    (270654, uint256S("48c284319b4c8d23560d72c10bbc1d56c1a47fac64e2366bbd02e3c0c8ca09ef"))
-    (278387, uint256S("14ae8ee5e762319237e7203d78489523a97dde1e20a0c49677bc75a708806639"))
-    (286120, uint256S("b289fdd92a9935132f29c3c600225b00fc86bd2486b9dc8aec68da89f261883b"))
-    (293853, uint256S("59f99015285ba6cbb9fc6b55f2a2dc5d0e94796a392d60243b79a93fc80e43fc"))
-    (301586, uint256S("3b4006ae1540294b36798c30b3aa726fb9d6162ad9b4ca699a0e12f365f792e7"))
-    (309319, uint256S("1b6f3fbf178ccb4fbe458f372f78134f276a5e87699676827ed4e8a3ddf66574"))
-    (317052, uint256S("eda8f386c5be96c742184e9ff4ac1202d0a0f717022602310e59c31725a4ae1f"))
-    (324785, uint256S("4b442f22fab8733f9cbb8f107041030a52daa9d31df7072e9b5a30aac2ad0424"))
-    (332518, uint256S("284869c3b18f5e479c820a9cf1cd272990aee9cbe930329ccdadf8eff48ee5b8"))
-    (340251, uint256S("3e6bc67038b0f88b3d9e3427c394f82e27e01cd6608cd7a68db112b6ac343bad"))
-    (347984, uint256S("25686db0ca0da6023c16f79f35458ab4b171e50f98c48587bb342aa6f67d6149"))
-    (355717, uint256S("69c6f5962b3a20516dabde3eae08ffe7fb682bd3a220ac453761a749de53aee6"))
-    (363450, uint256S("ab7d3161f6e0be8db2721783058ffc45ca2dc481c0ac2e71890a07a7450ab19b"))
-    (371183, uint256S("bfb370489b411115cd9e65747f96e6460f5b2844fd2efebc7a088afe25da7f51"))
-    (378916, uint256S("0d92a2f183840324b8df214e654ed83204aa7f3e22235430b75edf6517d7f538"))
-    (386649, uint256S("1eb7e91362163a4eddfd6919507469218fc86850cd700d6e0f25a875a6804253"))
-    (394382, uint256S("8a8b887dcac1921e29affa6e15feba6c9124b0fae011b3db0fff5da826c05638"))
-    (402115, uint256S("1f16c3bfed5ff3af56eb32cc0a9e775c103d3476a40d178250c511721e66754b"))
-    (409848, uint256S("ceb4686f5568008e18541d26d47111ed54dca2eeee449a028f90f236e102a0c7"))
-    (417581, uint256S("2d996d18b33aa9337e07fc7e7144440e3529785ad46b5784cd886d33e893f724"))
-    (425314, uint256S("751a3a535a4ce97987faf687f1975f0ef10613abfe70590a1ceec20cb557f386"))
-    (433047, uint256S("6fdb86ecc679156d4e245d4acfb1b6f07a5c60ef5ab45bd913c5ee4b62ace745"))
-    (440780, uint256S("13aa575f0467228f9049ff693076dd4c3416a502d625631bf2a3c7ee8d555e3c"))
-    (448513, uint256S("1e7a9b3b3eb8d13426c75358d47182bfb164963fc795bd30dd269f55924e74e5"))
-    (456246, uint256S("6bb69758fa3644c154646525a7cf30f865a3a352331c3a7be6d8b603e8e2308a"))
-    (463979, uint256S("006a9b2e15d245a9bb39b0aa3b80e44a8a54eb7b8f4476bafb068072ccad522b"))
-    (471712, uint256S("74f88c4deea7554a45fe28bc9aa54d253e49efdfc3c154fb33dc313198098cf6"))
-    (479445, uint256S("7d4a6f344e992ea19cb949f464f3ca0fa6d617eb03ed752344eaac09e9324404"))
-    (487178, uint256S("79e0d68eb382a45b0e436afab5c20433890957b66174e998d3c29d1794327045"))
-    (494911, uint256S("a9cc316189d6d4939e2f3686c8bc9fd68d36986b20f2b8416ee54e3ad88deb36"))
-    (502644, uint256S("bf0cd159fd05c2482837f9f55c305272393fed4015799d328155e9c98d72cd58"))
-    (510377, uint256S("5fc31c8aa3f89d26fee3732187b335e4cd4ec2ff88204cfb4b3126f3c4fdc553"))
-    (518110, uint256S("99daabf576d5f376bd720632688d4f5d0aeff9a5e5f5a17b27a6e9573f07f995"))
-    (525843, uint256S("4cb0ea7af2fb238c16fb6a41b152afb8f1244b32069befa14a76350911c51676"))
-    (533576, uint256S("4e4d512fe4817a55c3383aa4610c2a4831d6d3e9dc636782325272a21cd92500"))
-    (541309, uint256S("1d7214c5e20542c108e5bb1aef5271c8742c5ef0ea907650c8c88977fcd93cf2"))
-    (549042, uint256S("fbe790f60cf4102a441172b48743051d1cef5a68d75db01669e229e8d38f3d06"))
-    (556775, uint256S("a5ac226042f6e70e88c4f07d6dcadd74c82c52645bd01e552cb341125113f66b"))
-    (564508, uint256S("61d27b2fa38e40b4fc325a7f9fb3770315e62c859ddb1a40710d558d1d9b362d"))
-    (572241, uint256S("3517d50e1b6bd60c6054a757c292fc5c946cd0e08dcef33a7261690a642ed892"))
-    (579974, uint256S("56122f91abe2b68d9a25e52ff3ee41d889fc9c56e8b457fccc30a7114aa2a41b"))
-    (587707, uint256S("cba2156a3b45de490110e4ba9fba66004f0856e04e9ad6c52aa2c89a298ac713"))
-    (595440, uint256S("f33edf7cc745e0b8c839c18e720e90454585d7784f2f36987b25ed321f21621c"))
-    (603173, uint256S("0c5ddf52e096c84c43aba59c03669d3e04bed92aa387faf3902c268fed2dee65"))
-    (610906, uint256S("6bd46bafe2e3cf9d7ab2a27c5e32f89217d6986b501ef2d728515a23bd1cc646"))
-    (618639, uint256S("bfec8ed8c4f0667859c3279aa69adde13b5c44ecf467d6400091e442f358c88f"))
-    (626372, uint256S("60e2299cdef3d14d06fdaf18348c1e18733ab357428b7a49402484a9dd2f9260"))
-    (634105, uint256S("64cf293d4d01be70d0fd693e4ce58181f9433deae376d7ae08cb7f6dcaa40750"))
-    (641838, uint256S("a1f8e8d5ea9a398dd26150be10f43f2bdfdcae5afbd6c8d154f600005cd846f1"))
-    (649571, uint256S("ce1b6915e77dd15c32fdaa4c997e9435afdbfcffca68ea95b1ba3241915e500e"))
-    (657304, uint256S("2bef88f2844111ae7fefae8a9aba1f56000c90c682e59f2628d9511780aa15bc"))
-    (665037, uint256S("4c3675c9f42b91ff608a33d61a95f63db6a0566c3d87a64420ca1204afc57f93"))
-    (672770, uint256S("5fec69612f77934f0aa3fb624bb166113e24e15cbf07adceb024c9ca96f83075"))
-    (680503, uint256S("5445f002c1ed3756968b47b5d8bd00f7a63b71999fa1105b437e6e4a1c4637a9"))
-    (688236, uint256S("c5ab7eca0bfef12630bb24b5d5b56c1311f39e363f2530930941074014b8724d"))
-    (695969, uint256S("553a17d55a085240986271b591db00845a55a75bac75bb99b794d128255392c9"))
-    (703702, uint256S("974e0203906d7f0aa7fb74247ad483f56a5f2ea4196fcf788dbc558007fc6c06"))
-    (711435, uint256S("8844e3d2a3ba761016f87a4b00a3ef313db3817a8eef509f0a4946972f6dec77"))
-    (719168, uint256S("0af43638656e9ccddcefce4cda085fe30734787485ea83a8dd6eab1e478aa8d7"))
-    (726901, uint256S("ebb777d3a7be3aa56630b08d523e03b633406d5db5e8ffb69027e1fc7ecb799b"))
-    (734634, uint256S("db7c9dce55b76abbb9e4a252f880700d22b2c7b3cbedf4d4407cdc4cd199abff"))
-    (742367, uint256S("2d7dc9bcd85a88f50e73b2c657dbf9c467889d1ca9f84ecbaabb2d21ce8825b9"))
-    (750100, uint256S("5aa96df88e09b2f02a93f46294c138e788dca321e32a27da58a25a01328f7e67"))
-    (757833, uint256S("4de5e802affbdcfe3b6243ed99b4f555ae457f3042abe3fa062b13a4d1861d76"))
-    (765566, uint256S("4b7f40fc6e4abfbabcddcd0bd9dbbbe9b046d02f24d849df370d553598242ae6"))
-    (773299, uint256S("0375199823a77bcbf7c74d40f41c873a3403ab9e72bf5f7b9c9edc43252519b5"));
+    (9960, uint256S("8bb09b60b59744279a467edb04de9c176e3ba2b039fbf9fc3606ba3e84030a0e"))
+    (19921, uint256S("ed74782a51bdc6edd5882bd1fda0c581fbd74f67b7294d84cd046e66d76438d1"))
+    (29882, uint256S("dea6426bd2dcb44c00aa912cb5c98631eff338a2f05240716dae2e6b2316c3bc"))
+    (39843, uint256S("d48bea196a6d1f7d0e0934ca0d020c9caae4e0089ab88c7aadb2097e641a6e72"))
+    (49804, uint256S("3d380b08173625a1861064ce4f0f61eefaedfc9c65f9605652f57df53113117d"))
+    (59765, uint256S("b4d84540e0b49c9de0bc14d475fd8bb8332521c17466abe3516ecf64f6b3fb90"))
+    (69726, uint256S("34bafda7481e3fb9cde4435efc56a035b66de9aca2d5865ecc04467417afdd7a"))
+    (79687, uint256S("f83e480fa8af18b194919097f304065914005c03b1b7a97a3bf55672aaeb3784"))
+    (89648, uint256S("6f0533701018b730d29eb37d1a9258d241b4858846833ccf43b3efa4b92b67c5"))
+    (99609, uint256S("199f4faca6b05315b65931cfad6442fa4f8c3f35f51a3149c7bdd66f8b409a05"))
+    (109570, uint256S("faf5eb1a0e5b548d72568db2880afa0a518cd4a8ef028e233f9f39b4cbdd0875"))
+    (119531, uint256S("01fcb5fbbb490e550956520cb758585abfd40a24cd5cdb56a1edbc9625fef323"))
+    (129492, uint256S("ea2d1675f2de1e6cfdce13f99d10db4b14527b5ffda50ae1d751bc961e184237"))
+    (139453, uint256S("6a5cbeae9162ddbb09aa2e5d51a17b5b9c047399096f28c991f6b477f172e946"))
+    (149414, uint256S("c961b0ad879db0df76780eae30c3e8004bb0f9379fff1f2e616163a516d966ab"))
+    (159375, uint256S("15afa7c7baf0c67df0df5c408672030bbe7d8c15f0635f3cf26a446d5fb13478"))
+    (169336, uint256S("36ce9837faeeccad1da5f4123b3c924c83f0cc5b2439fcfacbacc970678220da"))
+    (179297, uint256S("0a594adf34664c16ab3cf9cb38fab513e96fce2cf85e3e10ccf44720428e9431"))
+    (189258, uint256S("bee4791f9571fbf49acfa988d565f893db3253e90f3e086c1ea9883f86fac905"))
+    (199219, uint256S("aad7bb7d4106cd4c53242d882f4a32dd5c2897e47f924ce18cac1715d5010982"))
+    (209180, uint256S("3695c26c964f3afccda982cf836eab3be16e9d94d36d67045b8fca957c26f8ba"))
+    (219141, uint256S("3d9fd69af7432db22238f8694bab6a928da06e4b7c2d194c167a7d6a3fe6c9be"))
+    (229102, uint256S("03f4827b9ac996747ce4b2f7c3e5f2594a22fe06c97e3215a6a8eb7efc59cccc"))
+    (239063, uint256S("7bb8c36e395c273c65ac08d974e526d34bf34c89a812298b856bd270b7d0c124"))
+    (249024, uint256S("dfebc973368bb4ee507dbed89776de3b7cc0852bb683c9339965498b92adc250"))
+    (258985, uint256S("be50d950f8f536a654914cc25b0165f0320efef068c573fd60f4f85d63a3eca2"))
+    (268946, uint256S("456e1dc14ab185e2aae0c616d7de8ceae22c7f1c33b16313d1be57c33673b0ff"))
+    (278907, uint256S("991303d15cfedc46f71409be5161a435e8fdf7bf6882bd7be7a768cb7d14a520"))
+    (288868, uint256S("77249a8131bf2f1b4c7a9c278fbd9ebf404e2e9c8deea49a692ebe3cc772de0c"))
+    (298829, uint256S("4d1712bb3e609ad5112ead0fe1804d6b9e7326e4dc2c91314abce11cfd885877"))
+    (308790, uint256S("d0d1e9b20727dc9bdfb15b83fd6997b90fb3ef37db437d428966bc3b0bd303c5"))
+    (318751, uint256S("fc03f30e0b116682f6f7c8f2532e64e91e131b8a1b7155d854277c963337a442"))
+    (328712, uint256S("75f8abe1222654a4f5adfcca0e7753c93fa88605990e0be0301702b211f8bbbb"))
+    (338673, uint256S("4d855a678678210a65c706e9f5492dd90fef409791edca7a14c5a244127f956e"))
+    (348634, uint256S("0f2c34f027037f5e627e18a83fa6db19e64712b4db2b9f63b436663f65e58152"))
+    (358595, uint256S("5b0740a90715822b190e71a8347e8a25c849f3095c2f9b87284e7f394dd6a4e6"))
+    (368556, uint256S("6ca228abff2d7c7e0daac57a83fb5094c4661ad86f55bec15ff8afdd83471a17"))
+    (378517, uint256S("3f2f12a8dcb3f3cabb2e39b68246ec572d1829c5f5ecf30b1eb5777ff83bec9d"))
+    (388478, uint256S("ccbca9489ca9c2ce999ecababfef5846e112e2119cfc6557151bb3e8e382c0a4"))
+    (398439, uint256S("e3494333cc6fcd6e8fd18181c4d451a43d3285efd79eba456afee7f2d6a8dc28"))
+    (408400, uint256S("82fb363dce5ef237ce1d8880f8287587772215e9bbfa67620cf453a5f0f109c3"))
+    (418361, uint256S("effec6d28af820f283244d34aab6b311051db85c4c01cccfcefd6d06e72f7a00"))
+    (428322, uint256S("3fcda7d965d1924405aeab75ebfc0ccf8ffe5e657f50a1bdb117dff85dd615b8"))
+    (438283, uint256S("4680a5a37674d82d15890bff7d9282d23d62eb9c1f514c6d779c143d2a5bdce1"))
+    (448244, uint256S("1b087d3ad6e37be96c539bc21d6b54e5b364642db1d579dfa89e403d16d93387"))
+    (458205, uint256S("9e55356559503ad91e2c59995c1e70dc1cdabfde8e735d59a7f1b9192bb288e8"))
+    (468166, uint256S("a3370d77ad4f4fea2ddac04b3b03bb1f53d9a54441d2049d2e64c95b089c16ba"))
+    (478127, uint256S("02e77365fffc86a9338fa5dd1586f2e908d5b7e7c86cc054dd148d4a327fcde3"))
+    (488088, uint256S("902f22b43c1409ae2ccdc33ad3de048203bbb0a229996340f7981a9aeb44a121"))
+    (498049, uint256S("fd97a12c0d133dc0114f74c262724807945710f0be4eeb873688f161bbe053b3"))
+    (508010, uint256S("6e4d1f40ac79b7daaf40a8dd4bc786e7678c08b3d85ef5001c639852732118e0"))
+    (517971, uint256S("c8dc80f05f33387cb74d9e82d3146bff8955a4feee78c5676e7b26ca5c329204"))
+    (527932, uint256S("c26f510ec68ba9742977642a6fe53ae1441a26a37c34b2b11485628424b4ebb6"))
+    (537893, uint256S("ba11b7cb9bfbec5cc0109e25abb1a02f194c26f2a0b80f737c7c46e920af796a"))
+    (547854, uint256S("c29d83c38f19ec378e787ee0c4e2a01f59b73e2dfb86e24a5c141578ae7190ce"))
+    (557815, uint256S("41ee35fe3a7b05567708074f637111ba836bfa96d9bd5d22790b838e14f42144"))
+    (567776, uint256S("fda8ae8c2b2ae1a8e9153528c65a782833ccb15021d63e253c193c6d41e92420"))
+    (577737, uint256S("f8bc905fd4ed2b061e59e2114ef8bd2fa39200fb75cb634689a8312dbebe4cfc"))
+    (587698, uint256S("b60e21861f55873700da22960bbaa2396d84796591f86375b3cd1ad66d389fdf"))
+    (597659, uint256S("c9d2b10171cc408ff144967d0c5c21c165ca060b6b71afca6ed0c9faf221e037"))
+    (607620, uint256S("c1ff9c0dccc4f449700d16d0ad3bc60b62dffbfc3f985a356d3d73fffcf68bb2"))
+    (617581, uint256S("80535da8c735dc7c9f39aae3717f2cc35b6c115a58a76b9d01b9aa99f98821ec"))
+    (627542, uint256S("7a95e6b0c1f1287245bd0663da8113d6044314a7c80932d3ca8d6549965c1976"))
+    (637503, uint256S("4bd09be3421be4ee1f4ab29756f4a426c558df8b29249658cabac89cf89dacf4"))
+    (647464, uint256S("052291973087a7c149cccfc741b6587fc8dab89d04877bb9b405d53422cb476f"))
+    (657425, uint256S("9f1d446a443deaf55456e3092e2feec7e015d4a8549bc72322e3d653e7dd6b5a"))
+    (667386, uint256S("97d2ea6aa1b3dde9e7c30c0838a538c9a76de68b2c19ad2f501de5b7124f3a40"))
+    (677347, uint256S("dfbff7e662568889ec8e0a00269688bdc74fbbb87604db25c8b6c4a9423c8f22"))
+    (687308, uint256S("1a3df4c4bff75d7f4710aabcd36cc96253b6c28056787ff348eb1aead59a4e7a"))
+    (697269, uint256S("eae068cad67ea9dcb0bd948bddceaa08ea96e6eba8786b3eb0db70fe8faac08c"))
+    (707230, uint256S("56ff470040175f789326fbf32c26a0bef88a692cdb6cf74fb42e40d89b2ad461"))
+    (717191, uint256S("90ac7e2d633fbcc8613658910cab1e127c96f31fa80b7a5805128d0eed1c1efd"))
+    (727152, uint256S("20410e103cac537370a9cb9a557636f1e515193bd055bd009060a22be19098cf"))
+    (737113, uint256S("e9a22d4551ca66c7d910ae3c581c87d4930d4b2170ace7f687c429b38cbc2f58"))
+    (747074, uint256S("b8f843b98d170d4fa324ae4c498b87586d5c3c708a6e9c3851d168bb6527adca"))
+    (757035, uint256S("729b784e9320c8e2712cbfb952bf2e90a7242dcfaf3f2591c756bfcbd610fa2f"))
+    (766996, uint256S("4eeef8c15499b434d2e67cfcb0892ed7032eed98fc90a01fa0d3fab6a57ffa38"))
+    (776957, uint256S("eeba2cbccda5cb33809a61032d89bdbf2836e9e6afddde11d7afe153dd1a415a"))
+    (786918, uint256S("210b0dbecb42bc84fe3c15618a9b6b281699688c19be451d1a41ef7d80b84b87"))
+    (796879, uint256S("67b8949db771d55e1a225b2ccbb5064e644a00f20cad940f37f414aadf2bf427"))
+    (806840, uint256S("b9b778980e274033fe1482fb125f0bfcf8f2f6c0b703edafba223a644cb1cb99"))
+    (816801, uint256S("721e9e88b27a81074b50163d3759f0e9c5d03b2ca3a9b8081f122e1127831b5e"))
+    (826762, uint256S("6caa9a9079f7d27139741fe8aafb51affc27f1b9a0f58a45e0e1b8f9b02bba02"))
+    (836723, uint256S("370b6fe28c0ecb4beed8f07ae2a52beece66d37a2522d19f2dc63ff252831ca6"))
+    (846684, uint256S("6af5224305d591be06d3e711d92009b690abfdbc352a82db1f5ea01f7beee751"))
+    (856645, uint256S("352ce796bd1e03082c83fd0d185e38a34098fd7b80d26728cee775a238653c31"))
+    (866606, uint256S("ad46985e6c9cae196a6f18180e1e2436fe48647e762060b5aa3db1bcd7373286"))
+    (876567, uint256S("52a2e3aec2fbdb5cc5b124cac8d3506e0f447f91ad940652d336bb7b7e2df6d1"))
+    (886528, uint256S("f77b3fba6b03e41c7ea773c138ac13ba5bdc3f115d8a97659379309d3e0d1d4b"))
+    (896489, uint256S("9f3bbd028c6c1411a273ca1833ed967029204135563464622cd0c198fc47b504"))
+    (906450, uint256S("dfb5ccf8897b8b8f9c4700126c1de9553b085dbef88f6ec9659a1763012c4884"))
+    (916411, uint256S("fa9d9f157ec430b6785402ded861347f699de2803b851f719c3379b7106311cf"))
+    (926372, uint256S("5600a00c1e52034cedb5b57857cec0275711e93ced3501b94560a5de56926699"))
+    (936333, uint256S("81e0605c919c8c6102cdc3d94e52ee96cbc7aac9b1306555680f1f00b75c4e14"))
+    (946294, uint256S("dce97b35b82be33c7b486f7c20ffb78083b1df0200c1e28a40a2cef9ab5d681e"))
+    (956255, uint256S("b67ee3ed52cfaaf78b1a7979760b79ce24bc448c10a7ec408ace82a428d9d3b8"))
+    (966216, uint256S("7e2dbdf3a4f865b9c10e1bd40629b98726728b8e7cbf0582adc5fd7c1e377b12"))
+    (976177, uint256S("4339a94abc57dd0421d486d896cdd8d098604944a84dbb1707d070865646289f"))
+    (986138, uint256S("2fe5882c719e764cb5438e39b8a8d627fceb6af80d2f5919db8f4b38d5b0b032"))
+    (996109, uint256S("0a9e26e68eb67213312f3e087b4317d43ce924453ef256561fbac789311f1e52"))
+    (1277504, uint256S("724029d5a1ccad7b843e0ca27c67c3fb543985b7e1c38cb5a551963a46fb68c1"))
+;
 
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1642018305, // * UNIX timestamp of last checkpoint block
-    2263988,    // * total number of transactions between genesis and last checkpoint
+    1673366715, // * UNIX timestamp of last checkpoint block
+    3612539,    // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the UpdateTip debug.log lines)
-    2812        // * estimated number of transactions per day after checkpoint
+    2880        // * estimated number of transactions per day after checkpoint
 };
 
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
@@ -215,15 +217,12 @@ public:
         consensus.powLimit   = ~UINT256_ZERO >> 20;   
         consensus.posLimitV1 = ~UINT256_ZERO >> 24;
         consensus.posLimitV2 = ~UINT256_ZERO >> 20;
-        consensus.nBudgetCycleBlocks = 30 * 24 * 60;       // approx. 1 every 30 days
-        consensus.nBudgetFeeConfirmations = 6;      // Number of confirmations for the finalization fee
         consensus.nCoinbaseMaturity = 15;
         consensus.nCoinbaseMaturityV2 = 100;
         consensus.nFutureTimeDriftPoW = 7200;
         consensus.nFutureTimeDriftPoS = 180;
         consensus.nMaxMoneyOut = 9999999999 * COIN;
         consensus.nPoolMaxTransactions = 3;
-        consensus.nProposalEstablishmentTime = 60 * 60 * 24;    // must be at least a day old to make it into a budget
         consensus.nStakeMinAge = 15 * 150;
         consensus.nStakeMinDepth = 15;
         consensus.nStakeMinDepthV2 = 600;
@@ -241,87 +240,62 @@ public:
 
         // burn addresses
         consensus.mBurnAddresses = {
-            { "DBURNXXXXXXXXXXXXXXXXXXXXXXXYnc6B1", 0 },
-            { "DAbELx8FfSDcX6qjtLCqrFn7HBDkZ1KNAG", 900537 },
-            { "D5GAzKMg3yg4qmd42e3e1x8scy9QxSBnhS", 900537 },
-            { "DT8EJc8uCjp69Zt4DjCdJfFYeBjZSa6zQr", 900537 },
-            { "DSKZgtey3TWnYLeQBxj138yJ2yt822u3gv", 900537 },
-            { "DGkqE8zGK7vTxJEDAgE9onrQ6NW79tjpi6", 900537 },
-            { "DBCwfTHKj8iUYRd9i529ssUcBRhBVinjx4", 900537 },
-            { "DJoXpFsuuheFLrkvoYhCHQH85Eg1jhUp9n", 900537 },
-            { "DD1uDEQWMWXfavbnZjAbiRZNY4N3zCfsqJ", 900537 },
-            { "D8UwYrzy2LcvLGJQ5WhEosFV27d3EAfCn3", 900537 },
-            { "DE7xCPEGNFxG4tsmrffZo8mjUcJFv5rqJc", 900537 },
-            { "D6v3xH7duBdMns5wPmqxkQdSygLCDVGxGW", 900537 },
-            { "D8jsEtrCaYZm5RY12FXtCpBKTLJUfAzZRb", 900537 },
-            { "DQMHcE3BSXYB6j484ks1uYNP3ZAAJmyzUs", 900537 },
-            { "DSZCYoq9VijYwBbRtvNuHdjj9vKGG8WJyx", 900537 },
-            { "DTepEVAUBoDPDiJRz8xuFk2we6SdBpsAXB", 900537 },
-            { "DGsAikWijivMPLYrWNxpjpDoYVsNXovdu5", 900537 },
-            { "DHdAgQSfUEMHMmzkCXkVV7PkZcicGKZr84", 900537 },
-            { "DGHReU3Jj9tcYV2VvxtDpJk2odGtiaaCBt", 900537 },
-            { "DJmVY6kg6SH7LB4gudPjKhcjtZYENDygtq", 900537 },
-            { "DNkDebTUcieJ4TaXQFhzaQ5PTqdeixTbwg", 900537 },
-            { "DDAUZUz1DWuEYEi7GN3BgsTvUqv7TW5yap", 900537 },
-            { "D9rxeSd8fvGdgRdiSBCCSyKXP1nprnjuxK", 900537 },
-            { "DGgo2BeNbdbtvHhpD96oxya1MmELreP7M2", 900537 },
-            { "DKywMxFgmmEdTkKcoZNsV1FvULgjdLhzw8", 900537 },
-            { "DNR2ehG2CHHZVwRpnr7D59r64bfptckFpN", 900537 },
-            { "DFUpqpsVFsdB4RQ3tcgQryB22GpiQV9CHQ", 900537 },
-            { "DDbrPCnzwLF6CiNW4uErqZAAHoXB9yio4B", 900537 },
-            { "DDYJ5SunjJH88a6XaxJoVtrWZGRfz7AMHF", 900537 },
-            { "D8EWD4dhQAupRU7wbo7zpqp2mYrFKnC5NA", 900537 },
-            { "D5C18FLjL8m6nrrZ52JMvnLaf2McsqnMQg", 900537 },
-            { "DFK47Bij4pCRExAQC6La9uos8W4CcZmXwC", 900537 },
-            { "DTNcPqByDBzSYhfbwfwr2hCqNg9tj6wji4", 900537 },
-            { "DTjK5an9tXHoXgfDmthfD6uVdoy8LkJsYm", 900537 },
-            { "DSU6bf6PPp9dJ7szfZHgckoncPi8VWV2g4", 900537 },
-            { "DTLfCEicRrxbmFN2362XtWJk5wTEi551Y5", 900537 },
-            { "DSEdtVYEZw7WRmLff8ZPXmQEsbQbjHBRuE", 900537 },
-            { "D5S6BH73TNJ4mitAc1qsgcKyLXYaobLe7Y", 900537 },
-            { "DENGPYFTr9mrWfDhB8yqqYTdrRVJrxGGou", 900537 },
-            { "DAkxhqgt1ATAVjs43VUdNkbyadXCWA841i", 900537 },
-            { "DM9dHLbGs5ZDUTrDePD6oVqZrNLYJwFrxq", 900537 },
-            { "DQgBvBpzKdhXkiArpsRWbr1EsSmhDsfXYy", 900537 },
-            { "DDyLXUkD4jKrZDFvxkVhgksPdfK9VqyktZ", 900537 },
-            { "DDyw67fBnVB17GW3GF3Q6PvxuSSh7WMBDE", 900537 },
-            { "DCj8PJChZ5ZE3HyeonGnXGtV8GsqoV7j8i", 900537 },
-            { "D96NkYkVhREyahWqZ8j8eVDrMTw8Aw48AE", 900537 },
-            { "DSW2Vhzn8vA8WZngVZUb2FsJV2g4PnzF6Z", 900537 },
-            { "DJoCjfPBmyH9tgsvYejL9GFEZf4ohKZiQT", 900537 },
+            { "DBURNXXXXXXXXXXXXXXXXXXXXXXXYnc6B1", std::pair<int, int>(0, INT_MAX) },
+            { "DAbELx8FfSDcX6qjtLCqrFn7HBDkZ1KNAG", std::pair<int, int>(900537, 1300000) },
+            { "D5GAzKMg3yg4qmd42e3e1x8scy9QxSBnhS", std::pair<int, int>(900537, 1300000) },
+            { "DT8EJc8uCjp69Zt4DjCdJfFYeBjZSa6zQr", std::pair<int, int>(900537, 1300000) },
+            { "DSKZgtey3TWnYLeQBxj138yJ2yt822u3gv", std::pair<int, int>(900537, 1300000) },
+            { "DGkqE8zGK7vTxJEDAgE9onrQ6NW79tjpi6", std::pair<int, int>(900537, 1300000) },
+            { "DBCwfTHKj8iUYRd9i529ssUcBRhBVinjx4", std::pair<int, int>(900537, 1300000) },
+            { "DJoXpFsuuheFLrkvoYhCHQH85Eg1jhUp9n", std::pair<int, int>(900537, 1300000) },
+            { "DD1uDEQWMWXfavbnZjAbiRZNY4N3zCfsqJ", std::pair<int, int>(900537, 1300000) },
+            { "D8UwYrzy2LcvLGJQ5WhEosFV27d3EAfCn3", std::pair<int, int>(900537, 1300000) },
+            { "DE7xCPEGNFxG4tsmrffZo8mjUcJFv5rqJc", std::pair<int, int>(900537, 1300000) },
+            { "D6v3xH7duBdMns5wPmqxkQdSygLCDVGxGW", std::pair<int, int>(900537, 1300000) },
+            { "D8jsEtrCaYZm5RY12FXtCpBKTLJUfAzZRb", std::pair<int, int>(900537, 1300000) },
+            { "DQMHcE3BSXYB6j484ks1uYNP3ZAAJmyzUs", std::pair<int, int>(900537, 1300000) },
+            { "DSZCYoq9VijYwBbRtvNuHdjj9vKGG8WJyx", std::pair<int, int>(900537, 1300000) },
+            { "DTepEVAUBoDPDiJRz8xuFk2we6SdBpsAXB", std::pair<int, int>(900537, 1300000) },
+            { "DGsAikWijivMPLYrWNxpjpDoYVsNXovdu5", std::pair<int, int>(900537, 1300000) },
+            { "DHdAgQSfUEMHMmzkCXkVV7PkZcicGKZr84", std::pair<int, int>(900537, 1300000) },
+            { "DGHReU3Jj9tcYV2VvxtDpJk2odGtiaaCBt", std::pair<int, int>(900537, 1300000) },
+            { "DJmVY6kg6SH7LB4gudPjKhcjtZYENDygtq", std::pair<int, int>(900537, 1300000) },
+            { "DNkDebTUcieJ4TaXQFhzaQ5PTqdeixTbwg", std::pair<int, int>(900537, 1300000) },
+            { "DDAUZUz1DWuEYEi7GN3BgsTvUqv7TW5yap", std::pair<int, int>(900537, 1300000) },
+            { "D9rxeSd8fvGdgRdiSBCCSyKXP1nprnjuxK", std::pair<int, int>(900537, 1300000) },
+            { "DGgo2BeNbdbtvHhpD96oxya1MmELreP7M2", std::pair<int, int>(900537, 1300000) },
+            { "DKywMxFgmmEdTkKcoZNsV1FvULgjdLhzw8", std::pair<int, int>(900537, 1300000) },
+            { "DNR2ehG2CHHZVwRpnr7D59r64bfptckFpN", std::pair<int, int>(900537, 1300000) },
+            { "DFUpqpsVFsdB4RQ3tcgQryB22GpiQV9CHQ", std::pair<int, int>(900537, 1300000) },
+            { "DDbrPCnzwLF6CiNW4uErqZAAHoXB9yio4B", std::pair<int, int>(900537, 1300000) },
+            { "DDYJ5SunjJH88a6XaxJoVtrWZGRfz7AMHF", std::pair<int, int>(900537, 1300000) },
+            { "D8EWD4dhQAupRU7wbo7zpqp2mYrFKnC5NA", std::pair<int, int>(900537, 1300000) },
+            { "D5C18FLjL8m6nrrZ52JMvnLaf2McsqnMQg", std::pair<int, int>(900537, 1300000) },
+            { "DFK47Bij4pCRExAQC6La9uos8W4CcZmXwC", std::pair<int, int>(900537, 1300000) },
+            { "DTNcPqByDBzSYhfbwfwr2hCqNg9tj6wji4", std::pair<int, int>(900537, 1300000) },
+            { "DTjK5an9tXHoXgfDmthfD6uVdoy8LkJsYm", std::pair<int, int>(900537, 1300000) },
+            { "DSU6bf6PPp9dJ7szfZHgckoncPi8VWV2g4", std::pair<int, int>(900537, 1300000) },
+            { "DTLfCEicRrxbmFN2362XtWJk5wTEi551Y5", std::pair<int, int>(900537, 1300000) },
+            { "DSEdtVYEZw7WRmLff8ZPXmQEsbQbjHBRuE", std::pair<int, int>(900537, 1300000) },
+            { "D5S6BH73TNJ4mitAc1qsgcKyLXYaobLe7Y", std::pair<int, int>(900537, 1300000) },
+            { "DENGPYFTr9mrWfDhB8yqqYTdrRVJrxGGou", std::pair<int, int>(900537, 1300000) },
+            { "DAkxhqgt1ATAVjs43VUdNkbyadXCWA841i", std::pair<int, int>(900537, 1300000) },
+            { "DM9dHLbGs5ZDUTrDePD6oVqZrNLYJwFrxq", std::pair<int, int>(900537, 1300000) },
+            { "DQgBvBpzKdhXkiArpsRWbr1EsSmhDsfXYy", std::pair<int, int>(900537, 1300000) },
+            { "DDyLXUkD4jKrZDFvxkVhgksPdfK9VqyktZ", std::pair<int, int>(900537, 1300000) },
+            { "DDyw67fBnVB17GW3GF3Q6PvxuSSh7WMBDE", std::pair<int, int>(900537, 1300000) },
+            { "DCj8PJChZ5ZE3HyeonGnXGtV8GsqoV7j8i", std::pair<int, int>(900537, 1300000) },
+            { "D96NkYkVhREyahWqZ8j8eVDrMTw8Aw48AE", std::pair<int, int>(900537, 1300000) },
+            { "DSW2Vhzn8vA8WZngVZUb2FsJV2g4PnzF6Z", std::pair<int, int>(900537, 1300000) },
+            { "DJoCjfPBmyH9tgsvYejL9GFEZf4ohKZiQT", std::pair<int, int>(900537, 1300000) },
         };
-
-        // height-based activations
-        consensus.height_last_ZC_AccumCheckpoint    = DISABLED;
-        consensus.height_last_ZC_WrappedSerials     = DISABLED;
-        consensus.height_start_InvalidUTXOsCheck    = DISABLED;
-        consensus.height_start_ZC_InvalidSerials    = DISABLED;
-        consensus.height_start_ZC_SerialRangeCheck  = DISABLED;
-        consensus.height_ZC_RecalcAccumulators      = DISABLED;
-
-        // Zerocoin-related params
-        consensus.ZC_Modulus = "c95577b6dce0049b0a20c779af38079355abadde1a1d80c353f6cb697a7ae5a087bad39caa5798478551d0f9d91e626771"
-                "6506f32412de1d19d17588765eb9502b85c6a18abdb05791cfd8b734e960281193705eeece210920cc922b3af3ceb178bf12c22eb565d576"
-                "7fbf19545639be8953c2c38ffad41f3371e4aac750ac2d7bd614b3faabb453081d5d88fdbb803657a980bc93707e4b14233a2358c97763bf"
-                "28f7c933206071477e8b371f229bc9ce7d6ef0ed7163aa5dfe13bc15f7816348b328fa2c1e69d5c88f7b94cee7829d56d1842d77d7bb8692"
-                "e9fc7b7db059836500de8d57eb43c345feb58671503b932829112941367996b03871300f25efb5";
-        consensus.ZC_MaxPublicSpendsPerTx = 637;    // Assume about 220 bytes each input
-        consensus.ZC_MaxSpendsPerTx = 7;            // Assume about 20kb each input
-        consensus.ZC_MinMintConfirmations = 20;
-        consensus.ZC_MinMintFee = 1 * CENT;
-        consensus.ZC_MinStakeDepth = 200;
-        consensus.ZC_TimeStart = 1667974340;        // 01/01/2030 @ 12:00am (UTC)
-        consensus.ZC_WrappedSerialsSupply = 0; //4131563 * COIN;   // zerocoin supply at height_last_ZC_WrappedSerials
 
         // Network upgrades
         consensus.vUpgrades[Consensus::BASE_NETWORK].nActivationHeight                      = Consensus::NetworkUpgrade::ALWAYS_ACTIVE;
         consensus.vUpgrades[Consensus::UPGRADE_TESTDUMMY].nActivationHeight                 = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
         consensus.vUpgrades[Consensus::UPGRADE_POS].nActivationHeight                       = 201;
         consensus.vUpgrades[Consensus::UPGRADE_POS_V2].nActivationHeight                    = 337700;
-        consensus.vUpgrades[Consensus::UPGRADE_ZC].nActivationHeight                        = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
-        consensus.vUpgrades[Consensus::UPGRADE_ZC_V2].nActivationHeight                     = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
         consensus.vUpgrades[Consensus::UPGRADE_BIP65].nActivationHeight                     = 337800;
-        consensus.vUpgrades[Consensus::UPGRADE_ZC_PUBLIC].nActivationHeight                 = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
         consensus.vUpgrades[Consensus::UPGRADE_STAKE_MODIFIER_V2].nActivationHeight         = 337900;
         consensus.vUpgrades[Consensus::UPGRADE_TIME_PROTOCOL_V2].nActivationHeight          = 338000;
         consensus.vUpgrades[Consensus::UPGRADE_P2PKH_BLOCK_SIGNATURES].nActivationHeight    = 338100;
@@ -353,14 +327,14 @@ public:
         nDefaultPort = 12341;
 
         vSeeds.push_back(CDNSSeedData("seeder", "seeder.dashdiamond.net"));
-	    vSeeds.push_back(CDNSSeedData("seed1", "seed1.dashdiamond.net"));
-        vSeeds.push_back(CDNSSeedData("seed2", "seed2.dashdiamond.net"));
-        vSeeds.push_back(CDNSSeedData("seed3", "seed3.dashdiamond.net"));
-        vSeeds.push_back(CDNSSeedData("seed4", "seed4.dashdiamond.net"));
-	    vSeeds.push_back(CDNSSeedData("seed5", "seed5.dashdiamond.net"));
-	    vSeeds.push_back(CDNSSeedData("seed6", "seed6.dashdiamond.net"));
-	    vSeeds.push_back(CDNSSeedData("seed7", "seed7.dashdiamond.net"));
-	    vSeeds.push_back(CDNSSeedData("seed8", "seed8.dashdiamond.net"));
+	    vSeeds.push_back(CDNSSeedData("seed1",  "seed1.dashdiamond.net"));
+        vSeeds.push_back(CDNSSeedData("seed2",  "seed2.dashdiamond.net"));
+        vSeeds.push_back(CDNSSeedData("seed3",  "seed3.dashdiamond.net"));
+        vSeeds.push_back(CDNSSeedData("seed4",  "seed4.dashdiamond.net"));
+	    vSeeds.push_back(CDNSSeedData("seed5",  "seed5.dashdiamond.net"));
+	    vSeeds.push_back(CDNSSeedData("seed6",  "seed6.dashdiamond.net"));
+	    vSeeds.push_back(CDNSSeedData("seed7",  "seed7.dashdiamond.net"));
+	    vSeeds.push_back(CDNSSeedData("seed8",  "seed8.dashdiamond.net"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 30); // D
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 83); // a
@@ -402,14 +376,11 @@ public:
         consensus.powLimit   = ~UINT256_ZERO >> 20;   // dashdiamond starting difficulty is 1 / 2^12
         consensus.posLimitV1 = ~UINT256_ZERO >> 24;
         consensus.posLimitV2 = ~UINT256_ZERO >> 20;
-        consensus.nBudgetCycleBlocks = 43200;       // approx. 1 every 30 days
-        consensus.nBudgetFeeConfirmations = 6;
         consensus.nCoinbaseMaturity = 15;
         consensus.nFutureTimeDriftPoW = 7200;
         consensus.nFutureTimeDriftPoS = 180;
         consensus.nMaxMoneyOut = 43199500 * COIN;
         consensus.nPoolMaxTransactions = 2;
-        consensus.nProposalEstablishmentTime = 60 * 60 * 24;    // must be at least a day old to make it into a budget
         consensus.nStakeMinAge = 60 * 60;
         consensus.nStakeMinDepth = 60;
 		consensus.nStakeMinDepthV2 = 600;
@@ -424,48 +395,19 @@ public:
         consensus.nTime_EnforceNewSporkKey = 0;
         consensus.nTime_RejectOldSporkKey = 0;
 
-        // height based activations
-        consensus.height_last_ZC_AccumCheckpoint    = DISABLED;
-        consensus.height_last_ZC_WrappedSerials     = DISABLED;
-        consensus.height_start_InvalidUTXOsCheck    = DISABLED;
-        consensus.height_start_ZC_InvalidSerials    = DISABLED;
-        consensus.height_start_ZC_SerialRangeCheck  = DISABLED;
-        consensus.height_ZC_RecalcAccumulators      = DISABLED;
-
-        // Zerocoin-related params
-        consensus.ZC_Modulus = "25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784"
-                "4069182906412495150821892985591491761845028084891200728449926873928072877767359714183472702618963750149718246911"
-                "6507761337985909570009733045974880842840179742910064245869181719511874612151517265463228221686998754918242243363"
-                "7259085141865462043576798423387184774447920739934236584823824281198163815010674810451660377306056201619676256133"
-                "8441436038339044149526344321901146575444541784240209246165157233507787077498171257724679629263863563732899121548"
-                "31438167899885040445364023527381951378636564391212010397122822120720357";
-        consensus.ZC_MaxPublicSpendsPerTx = 637;    // Assume about 220 bytes each input
-        consensus.ZC_MaxSpendsPerTx = 7;            // Assume about 20kb each input
-        consensus.ZC_MinMintConfirmations = 20;
-        consensus.ZC_MinMintFee = 1 * CENT;
-        consensus.ZC_MinStakeDepth = 200;
-        consensus.ZC_TimeStart = 1524711188;        // Thu Apr 25 04:06:18 AM +00 2019
-        consensus.ZC_WrappedSerialsSupply = 0;   // WrappedSerials only on main net
-
         // Network upgrades
         consensus.vUpgrades[Consensus::BASE_NETWORK].nActivationHeight                      = Consensus::NetworkUpgrade::ALWAYS_ACTIVE;
         consensus.vUpgrades[Consensus::UPGRADE_TESTDUMMY].nActivationHeight                 = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
         consensus.vUpgrades[Consensus::UPGRADE_POS].nActivationHeight                       = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT; 
-        consensus.vUpgrades[Consensus::UPGRADE_POS_V2].nActivationHeight                    = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT; 
-        consensus.vUpgrades[Consensus::UPGRADE_ZC].nActivationHeight                        = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
-        consensus.vUpgrades[Consensus::UPGRADE_ZC_V2].nActivationHeight                     = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
-        consensus.vUpgrades[Consensus::UPGRADE_BIP65].nActivationHeight                     = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT; 
-        consensus.vUpgrades[Consensus::UPGRADE_ZC_PUBLIC].nActivationHeight                 = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
+        consensus.vUpgrades[Consensus::UPGRADE_POS_V2].nActivationHeight                    = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
+        consensus.vUpgrades[Consensus::UPGRADE_BIP65].nActivationHeight                     = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
         consensus.vUpgrades[Consensus::UPGRADE_STAKE_MODIFIER_V2].nActivationHeight         = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT; 
         consensus.vUpgrades[Consensus::UPGRADE_TIME_PROTOCOL_V2].nActivationHeight          = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT; 
         consensus.vUpgrades[Consensus::UPGRADE_P2PKH_BLOCK_SIGNATURES].nActivationHeight    = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT; 
 		consensus.vUpgrades[Consensus::UPGRADE_STAKE_MIN_DEPTH_V2].nActivationHeight        = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
         consensus.vUpgrades[Consensus::UPGRADE_COINBASE_MATURITY_V2].nActivationHeight      = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
 
-        consensus.vUpgrades[Consensus::UPGRADE_ZC].hashActivationBlock                      = uint256S("0x0");
-        consensus.vUpgrades[Consensus::UPGRADE_ZC_V2].hashActivationBlock                   = uint256S("0x0");
         consensus.vUpgrades[Consensus::UPGRADE_BIP65].hashActivationBlock                   = uint256S("0x0");
-        consensus.vUpgrades[Consensus::UPGRADE_ZC_PUBLIC].hashActivationBlock               = uint256S("0x0");
         consensus.vUpgrades[Consensus::UPGRADE_STAKE_MODIFIER_V2].hashActivationBlock       = uint256S("0x0");
         consensus.vUpgrades[Consensus::UPGRADE_TIME_PROTOCOL_V2].hashActivationBlock        = uint256S("0x0");
 		consensus.vUpgrades[Consensus::UPGRADE_P2PKH_BLOCK_SIGNATURES].hashActivationBlock  = uint256S("0x0");
@@ -538,14 +480,11 @@ public:
         consensus.powLimit   = ~UINT256_ZERO >> 20;   // dashdiamond starting difficulty is 1 / 2^12
         consensus.posLimitV1 = ~UINT256_ZERO >> 24;
         consensus.posLimitV2 = ~UINT256_ZERO >> 20;
-        consensus.nBudgetCycleBlocks = 144;       // approx 10 cycles per day
-        consensus.nBudgetFeeConfirmations = 3;      // (only 8-blocks window for finalization on regtest)
         consensus.nCoinbaseMaturity = 100;
         consensus.nFutureTimeDriftPoW = 7200;
         consensus.nFutureTimeDriftPoS = 180;
         consensus.nMaxMoneyOut = 43199500 * COIN;
         consensus.nPoolMaxTransactions = 2;
-        consensus.nProposalEstablishmentTime = 60 * 5;  // at least 5 min old to make it into a budget
         consensus.nStakeMinAge = 0;
         consensus.nStakeMinDepth = 2;
         consensus.nTargetTimespan = 40 * 150;
@@ -563,38 +502,12 @@ public:
         consensus.nTime_EnforceNewSporkKey = 0;
         consensus.nTime_RejectOldSporkKey = 0;
 
-        // height based activations
-        consensus.height_last_ZC_AccumCheckpoint    = DISABLED; //310     // no checkpoints on regtest
-        consensus.height_last_ZC_WrappedSerials     = DISABLED; //-1
-        consensus.height_start_InvalidUTXOsCheck    = DISABLED; //999999999
-        consensus.height_start_ZC_InvalidSerials    = DISABLED; //999999999
-        consensus.height_start_ZC_SerialRangeCheck  = DISABLED; //300
-        consensus.height_ZC_RecalcAccumulators      = DISABLED; //999999999
-
-        // Zerocoin-related params
-        consensus.ZC_Modulus = "25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784"
-                "4069182906412495150821892985591491761845028084891200728449926873928072877767359714183472702618963750149718246911"
-                "6507761337985909570009733045974880842840179742910064245869181719511874612151517265463228221686998754918242243363"
-                "7259085141865462043576798423387184774447920739934236584823824281198163815010674810451660377306056201619676256133"
-                "8441436038339044149526344321901146575444541784240209246165157233507787077498171257724679629263863563732899121548"
-                "31438167899885040445364023527381951378636564391212010397122822120720357";
-        consensus.ZC_MaxPublicSpendsPerTx = 637;    // Assume about 220 bytes each input
-        consensus.ZC_MaxSpendsPerTx = 7;            // Assume about 20kb each input
-        consensus.ZC_MinMintConfirmations = 10;
-        consensus.ZC_MinMintFee = 1 * CENT;
-        consensus.ZC_MinStakeDepth = 10;
-        consensus.ZC_TimeStart = 0;                 // not implemented on regtest
-        consensus.ZC_WrappedSerialsSupply = 0;
-
         // Network upgrades
         consensus.vUpgrades[Consensus::BASE_NETWORK].nActivationHeight                      = Consensus::NetworkUpgrade::ALWAYS_ACTIVE;
         consensus.vUpgrades[Consensus::UPGRADE_TESTDUMMY].nActivationHeight                 = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
         consensus.vUpgrades[Consensus::UPGRADE_POS].nActivationHeight                       = 251;
         consensus.vUpgrades[Consensus::UPGRADE_POS_V2].nActivationHeight                    = 251;
-        consensus.vUpgrades[Consensus::UPGRADE_ZC].nActivationHeight                        = 300;
-        consensus.vUpgrades[Consensus::UPGRADE_ZC_V2].nActivationHeight                     = 300;
         consensus.vUpgrades[Consensus::UPGRADE_BIP65].nActivationHeight                     = Consensus::NetworkUpgrade::ALWAYS_ACTIVE;
-        consensus.vUpgrades[Consensus::UPGRADE_ZC_PUBLIC].nActivationHeight                 = 400;
         consensus.vUpgrades[Consensus::UPGRADE_STAKE_MODIFIER_V2].nActivationHeight         = 251;
         consensus.vUpgrades[Consensus::UPGRADE_TIME_PROTOCOL_V2].nActivationHeight          = Consensus::NetworkUpgrade::ALWAYS_ACTIVE;
         consensus.vUpgrades[Consensus::UPGRADE_P2PKH_BLOCK_SIGNATURES].nActivationHeight    = 300;

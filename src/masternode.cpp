@@ -80,7 +80,7 @@ CMasternode::CMasternode() :
     nScanningErrorCount = 0;
     nLastScanningErrorBlockHeight = 0;
     lastTimeChecked = 0;
-    lastPaid = UINT64_MAX;
+    lastTimeCollateralChecked = 0;
 }
 
 CMasternode::CMasternode(const CMasternode& other) :
@@ -101,7 +101,7 @@ CMasternode::CMasternode(const CMasternode& other) :
     nScanningErrorCount = other.nScanningErrorCount;
     nLastScanningErrorBlockHeight = other.nLastScanningErrorBlockHeight;
     lastTimeChecked = 0;
-    lastPaid = other.lastPaid;
+    lastTimeCollateralChecked = 0;
 }
 
 uint256 CMasternode::GetSignatureHash() const
@@ -139,6 +139,7 @@ bool CMasternode::UpdateFromNewBroadcast(CMasternodeBroadcast& mnb)
         protocolVersion = mnb.protocolVersion;
         addr = mnb.addr;
         lastTimeChecked = 0;
+        lastTimeCollateralChecked = 0;
         int nDoS = 0;
         if (mnb.lastPing.IsNull() || (!mnb.lastPing.IsNull() && mnb.lastPing.CheckAndUpdate(nDoS, false))) {
             lastPing = mnb.lastPing;
@@ -209,14 +210,13 @@ void CMasternode::Check(bool forceCheck)
         return;
     }
 
-    if(Params().GetConsensus().NetworkUpgradeActive(chainActive.Height(), Consensus::UPGRADE_STAKE_MODIFIER_V2)) {
-        if (lastPing.sigTime - sigTime < MASTERNODE_MIN_MNP_SECONDS) {
-            activeState = MASTERNODE_PRE_ENABLED;
-            return;
-        }
+    if(lastPing.sigTime - sigTime < MASTERNODE_MIN_MNP_SECONDS) {
+        activeState = MASTERNODE_PRE_ENABLED;
+        return;
     }
 
-    if (!unitTest) {
+    if (!unitTest && lastTimeChecked - lastTimeCollateralChecked > MINUTE_IN_SECONDS) {
+        lastTimeCollateralChecked = lastTimeChecked;
         CValidationState state;
         CMutableTransaction tx = CMutableTransaction();
         CScript dummyScript;
@@ -233,14 +233,15 @@ void CMasternode::Check(bool forceCheck)
                 return;
             }
         }
-
+        
         // ----------- burn address scanning -----------
         if (!consensus.mBurnAddresses.empty()) {
-            
+
             std::string addr = EncodeDestination(pubKeyCollateralAddress.GetID());
 
             if (consensus.mBurnAddresses.find(addr) != consensus.mBurnAddresses.end() &&
-                consensus.mBurnAddresses.at(addr) < chainActive.Height()
+                consensus.mBurnAddresses.at(addr).first < chainActive.Height() &&
+                consensus.mBurnAddresses.at(addr).second > chainActive.Height()
             ) {
                 activeState = MASTERNODE_VIN_SPENT;
                 return;
@@ -266,73 +267,72 @@ int64_t CMasternode::SecondsSincePayment()
     return month + hash.GetCompact(false);
 }
 
-int64_t CMasternode::GetLastPaid()
+int64_t CMasternode::GetLastPaidV1(CBlockIndex* pblockindex, const CScript& mnpayee)
 {
-    if(lastPaid != UINT64_MAX) return lastPaid;
+    CHashWriter ss(SER_GETHASH, PROTOCOL_VERSION);
+    ss << vin;
+    ss << sigTime;
+    uint256 hash = ss.GetHash();
 
-    const CBlockIndex* BlockReading = GetChainTip();
-    if (BlockReading == nullptr) return false;
+    // use a deterministic offset to break a tie -- 2.5 minutes
+    int64_t nOffset = hash.GetCompact(false) % 150;
 
-    CScript mnpayee = GetScriptForDestination(pubKeyCollateralAddress.GetID());
-
-    int nMnCount = 
-        mnodeman.CountEnabled() *
-        (sporkManager.IsSporkActive(SPORK_112_MASTERNODE_LAST_PAID_V2) ? 
-            2 : // go a little bit further
-            1.25
-        );
-
-    int n = 0;
-    for (unsigned int i = 1; BlockReading && BlockReading->nHeight > 0; i++) {
-        if (n >= nMnCount) {
-            lastPaid = 0;
-            return lastPaid;
-        }
-        n++;
-
+    int max_depth = mnodeman.CountEnabled() * 1.25;
+    for (int n = 0; n < max_depth; n++) { 
         {
             LOCK(cs_mapMasternodeBlocks);
 
-            if (masternodePayments.mapMasternodeBlocks.count(BlockReading->nHeight)) {
-                if(sporkManager.IsSporkActive(SPORK_112_MASTERNODE_LAST_PAID_V2)) {
-                    /*
-                        Search for this payee, on the blockchain
-                    */
-                    if (masternodePayments.mapMasternodeBlocks[BlockReading->nHeight].HasPaidPayee(mnpayee)) {
-                        lastPaid = BlockReading->nTime; // doesn't need the offset because it is deterministically read from the blockchain
-                        return lastPaid;
-                    }
-                } else {
-
-                    CHashWriter ss(SER_GETHASH, PROTOCOL_VERSION);
-                    ss << vin;
-                    ss << sigTime;
-                    uint256 hash = ss.GetHash();
-
-                    // use a deterministic offset to break a tie -- 2.5 minutes
-                    int64_t nOffset = hash.GetCompact(false) % 150;
-
-                    /*
-                        Search for this payee, with at least 2 votes. This will aid in consensus allowing the network
-                        to converge on the same payees quickly, then keep the same schedule.
-                    */
-                    if (masternodePayments.mapMasternodeBlocks[BlockReading->nHeight].HasPayeeWithVotes(mnpayee, 2)) {
-                        lastPaid = BlockReading->nTime + nOffset;
-                        return lastPaid;
-                    }
+            const auto& it = masternodePayments.mapMasternodeBlocks.find(pblockindex->nHeight);
+            if (it != masternodePayments.mapMasternodeBlocks.end()) {
+                // Search for this payee, with at least 2 votes. This will aid in consensus
+                // allowing the network to converge on the same payees quickly, then keep the same schedule.
+                if (it->second.HasPayeeWithVotes(mnpayee, 2)) {
+                    return pblockindex->nTime + nOffset;
                 }
             }
         }
+        
+        pblockindex = pblockindex->pprev;
 
-        if (BlockReading->pprev == NULL) {
-            assert(BlockReading);
+        if (pblockindex == nullptr || pblockindex->nHeight <= 0) {
             break;
         }
-        BlockReading = BlockReading->pprev;
     }
 
-    lastPaid = 0;
-    return lastPaid;
+    return 0;
+}
+
+int64_t CMasternode::GetLastPaidV2(CBlockIndex* pblockindex, const CScript& mnpayee)
+{
+    int max_depth = mnodeman.CountEnabled() * 2; // go a little bit further than V1
+    for (int n = 0; n < max_depth; n++) { 
+
+        auto paidpayee = pblockindex->GetPaidPayee();
+        if(paidpayee && mnpayee == *paidpayee) {
+            return pblockindex->nTime; // doesn't need the offset because it is deterministically read from the blockchain
+        }
+        
+        pblockindex = pblockindex->pprev;
+
+        if (pblockindex == nullptr || pblockindex->nHeight <= 0) {
+            break;
+        }
+    }
+
+    return 0;
+}
+
+int64_t CMasternode::GetLastPaid()
+{
+    CBlockIndex* pblockindex = GetChainTip();
+    if (pblockindex == nullptr) return false;
+
+    const CScript& mnpayee = GetScriptForDestination(pubKeyCollateralAddress.GetID());
+
+    return
+        !sporkManager.IsSporkActive(SPORK_112_MASTERNODE_LAST_PAID_V2) ?
+        GetLastPaidV1(pblockindex, mnpayee) :
+        GetLastPaidV2(pblockindex, mnpayee);
 }
 
 bool CMasternode::IsValidNetAddr()
@@ -350,11 +350,10 @@ bool CMasternode::IsInputAssociatedWithPubkey() const
     
     CTransaction txVin;
     uint256 hash;
-    if(GetTransaction(vin.prevout.hash, txVin, hash, true)) {
-        for (CTxOut out : txVin.vout) {
-            if (CMasternode::CheckMasternodeCollateral(out.nValue) && out.scriptPubKey == payee) return true;
-        }
-    }
+    if(GetTransaction(vin.prevout.hash, txVin, hash, true) &&
+       vin.prevout.n < txVin.vout.size() && 
+       CMasternode::CheckMasternodeCollateral(txVin.vout[vin.prevout.n].nValue) &&
+       txVin.vout[vin.prevout.n].scriptPubKey == payee) return true;
 
     return false;
 }
@@ -718,9 +717,12 @@ bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
 {
     // we are a masternode with the same vin (i.e. already activated) and this mnb is ours (matches our Masternode privkey)
     // so nothing to do here for us
-    if (fMasterNode && activeMasternode.vin != nullopt &&
-            vin.prevout == activeMasternode.vin->prevout && pubKeyMasternode == activeMasternode.pubKeyMasternode)
-        return true;
+    for (auto& activeMasternode : amnodeman.GetActiveMasternodes()) {
+        if (fMasterNode && 
+            activeMasternode.vin != nullopt &&
+            vin.prevout == activeMasternode.vin->prevout && 
+            pubKeyMasternode == activeMasternode.pubKeyMasternode) return true;
+    }
 
     // incorrect ping or its sigTime
     if(lastPing.IsNull() || !lastPing.CheckAndUpdate(nDoS, false, true)) return false;
@@ -788,15 +790,23 @@ bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
                 sigTime, vin.prevout.hash.ToString(), MASTERNODE_MIN_CONFIRMATIONS, pConfIndex->GetBlockTime());
             return false;
         }
+        if (GetMasternodeNodeCollateral(nConfHeight) != GetMasternodeNodeCollateral(chainActive.Height())) {
+            LogPrint(BCLog::MASTERNODE,"mnb - Wrong collateral transaction value of %d for Masternode %s (%i conf block is at %d)\n",
+                GetMasternodeNodeCollateral(nConfHeight) / COIN, vin.prevout.hash.ToString(), MASTERNODE_MIN_CONFIRMATIONS, pConfIndex->GetBlockTime());
+            return false;
+        }
     }
-
+    
     LogPrint(BCLog::MASTERNODE, "mnb - Got NEW Masternode entry - %s - %lli \n", vin.prevout.ToStringShort(), sigTime);
     CMasternode mn(*this);
     mnodeman.Add(mn);
 
     // if it matches our Masternode privkey, then we've been remotely activated
-    if (pubKeyMasternode == activeMasternode.pubKeyMasternode && protocolVersion == PROTOCOL_VERSION) {
-        activeMasternode.EnableHotColdMasterNode(vin, addr);
+    for (auto& activeMasternode : amnodeman.GetActiveMasternodes()) {
+        if (pubKeyMasternode == activeMasternode.pubKeyMasternode &&
+            protocolVersion == PROTOCOL_VERSION) {
+            activeMasternode.EnableHotColdMasterNode(vin, addr);
+        }
     }
 
     bool isLocal = (addr.IsRFC1918() || addr.IsLocal()) && !Params().IsRegTestNet();
