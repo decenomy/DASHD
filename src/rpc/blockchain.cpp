@@ -648,9 +648,8 @@ static bool GetUTXOStats(CCoinsView *view, CCoinsStats &stats)
             if (ExtractDestination(coin.out.scriptPubKey, source)) {
                 const std::string addr = EncodeDestination(source);
                 if (consensus.mBurnAddresses.find(addr) != consensus.mBurnAddresses.end() &&
-                    consensus.mBurnAddresses.at(addr).first < stats.nHeight &&
-                    consensus.mBurnAddresses.at(addr).second > stats.nHeight
-                ) {
+                    consensus.mBurnAddresses.at(addr) < stats.nHeight)
+                {
                     pcursor->Next();
                     continue;
                 }
@@ -681,7 +680,7 @@ static std::map<std::string, CAmount> GetBurnStats(CCoinsView* view, bool fWithV
     const Consensus::Params& consensus = Params().GetConsensus();
 
     for (const auto &p : consensus.mBurnAddresses ) {
-        if(p.second.first <= nHeight && p.second.second >= nHeight) {
+        if(p.second <= nHeight) {
             ret[p.first] = 0;
         }
     }
@@ -698,8 +697,7 @@ static std::map<std::string, CAmount> GetBurnStats(CCoinsView* view, bool fWithV
                 if (ExtractDestination(coin.out.scriptPubKey, source)) {
                     const std::string addr = EncodeDestination(source);
                     if (consensus.mBurnAddresses.find(addr) != consensus.mBurnAddresses.end() &&
-                        consensus.mBurnAddresses.at(addr).first <= nHeight &&
-                        consensus.mBurnAddresses.at(addr).second >= nHeight) {
+                        consensus.mBurnAddresses.at(addr) <= nHeight) {
                         ret[addr] = ret[addr] + coin.out.nValue;
                     }
                 }

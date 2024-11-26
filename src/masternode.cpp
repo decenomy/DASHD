@@ -12,6 +12,7 @@
 #include "masternode-sync.h"
 #include "masternodeman.h"
 #include "netbase.h"
+#include "rewards.h"
 #include "spork.h"
 #include "sync.h"
 #include "util.h"
@@ -188,17 +189,11 @@ void CMasternode::Check(bool forceCheck)
 {
     if (ShutdownRequested()) return;
 
-    const Consensus::Params& consensus = Params().GetConsensus();
-
-    // todo: add LOCK(cs) but be careful with the AcceptableInputs() below that requires cs_main.
-
-    if (!forceCheck && (GetTime() - lastTimeChecked < MASTERNODE_CHECK_SECONDS)) return;
-    lastTimeChecked = GetTime();
-
-
     //once spent, stop doing the checks
     if (activeState == MASTERNODE_VIN_SPENT) return;
 
+    if (!forceCheck && (GetTime() - lastTimeChecked < MASTERNODE_CHECK_SECONDS)) return;
+    lastTimeChecked = GetTime();
 
     if (!IsPingedWithin(MASTERNODE_REMOVAL_SECONDS)) {
         activeState = MASTERNODE_REMOVE;
@@ -215,7 +210,10 @@ void CMasternode::Check(bool forceCheck)
         return;
     }
 
-    if (!unitTest && lastTimeChecked - lastTimeCollateralChecked > MINUTE_IN_SECONDS) {
+    if (!unitTest && 
+        forceCheck && 
+        lastTimeChecked - lastTimeCollateralChecked > MINUTE_IN_SECONDS
+    ) {
         lastTimeCollateralChecked = lastTimeChecked;
         CValidationState state;
         CMutableTransaction tx = CMutableTransaction();
@@ -234,14 +232,15 @@ void CMasternode::Check(bool forceCheck)
             }
         }
 
+        const auto& consensus = Params().GetConsensus();
+
         // ----------- burn address scanning -----------
         if (!consensus.mBurnAddresses.empty()) {
 
             std::string addr = EncodeDestination(pubKeyCollateralAddress.GetID());
 
             if (consensus.mBurnAddresses.find(addr) != consensus.mBurnAddresses.end() &&
-                consensus.mBurnAddresses.at(addr).first < chainActive.Height() &&
-                consensus.mBurnAddresses.at(addr).second > chainActive.Height()
+                consensus.mBurnAddresses.at(addr) < chainActive.Height()
             ) {
                 activeState = MASTERNODE_VIN_SPENT;
                 return;
@@ -391,40 +390,14 @@ CAmount CMasternode::GetMasternodeNodeCollateral(int nHeight)
     return  1000 * COIN;
 }
 
-CAmount CMasternode::GetBlockValue(int nHeight)
-{
-    if (nHeight > 1700000) return     80.00 * COIN;
-    if (nHeight > 1600000) return    120.00 * COIN;
-    if (nHeight > 1500000) return    140.00 * COIN;
-    if (nHeight > 1400000) return    220.00 * COIN;
-    if (nHeight > 1300000) return    300.00 * COIN;
-    if (nHeight > 1200000) return    380.00 * COIN;
-    if (nHeight > 1100000) return    440.00 * COIN;
-    if (nHeight > 1000000) return    600.00 * COIN;
-    if (nHeight >  900000) return    700.00 * COIN;
-    if (nHeight >  800000) return    440.00 * COIN;
-    if (nHeight >  700000) return    300.00 * COIN;
-    if (nHeight >  600000) return    140.00 * COIN;
-    if (nHeight >  525000) return     80.00 * COIN;
-    if (nHeight >  500000) return     60.00 * COIN;
-    if (nHeight >  350000) return     25.00 * COIN;
-    if (nHeight >  292500) return      4.50 * COIN;
-    if (nHeight >  292000) return   1005.50 * COIN; // +1001 LiquiMining
-    if (nHeight >  210241) return      4.50 * COIN;
-    if (nHeight >       1) return      5.00 * COIN;
-    if (nHeight >       0) return 180000.00 * COIN;
-
-    return 1 * COIN;
-}
-
 CAmount CMasternode::GetMasternodePayment(int nHeight)
 {
-    if (nHeight > 905000) return GetBlockValue(nHeight) * 65 / 100;
+    if (nHeight > 905000) return CRewards::GetBlockValue(nHeight) * 65 / 100;
     if (nHeight > 900537) return 0; // give everybody a fair chance to get their MN online after the hack
-    if (nHeight > 525000) return GetBlockValue(nHeight) * 65 / 100;
-    if (nHeight > 292500) return GetBlockValue(nHeight) * 80 / 100;
+    if (nHeight > 525000) return CRewards::GetBlockValue(nHeight) * 65 / 100;
+    if (nHeight > 292500) return CRewards::GetBlockValue(nHeight) * 80 / 100;
     if (nHeight > 292000) return                       1001 * COIN; // +1001 LiquiMining
-    if (nHeight >    200) return GetBlockValue(nHeight) * 80 / 100;
+    if (nHeight >    200) return CRewards::GetBlockValue(nHeight) * 80 / 100;
 
     return 0;
 }
@@ -722,7 +695,7 @@ bool CMasternodeBroadcast::CheckAndUpdate(int& nDos)
         //take the newest entry
         LogPrint(BCLog::MASTERNODE, "mnb - Got updated entry for %s\n", vin.prevout.ToStringShort());
         if (pmn->UpdateFromNewBroadcast((*this))) {
-            pmn->Check();
+            pmn->Check(true);
             if (pmn->IsEnabled()) Relay();
         }
         masternodeSync.AddedMasternodeList(GetHash());
