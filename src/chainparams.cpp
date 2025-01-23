@@ -141,6 +141,7 @@ public:
         consensus.nTargetSpacingV2 = 1 * 60;
         consensus.nTimeSlotLength = 15;
         consensus.nRewardAdjustmentInterval = 7 * DAY_IN_SECONDS / consensus.nTargetSpacing;
+        consensus.nRewardAdjustmentIntervalV2 = 7 * DAY_IN_SECONDS / consensus.nTargetSpacingV2;
 
         // spork keys
         consensus.strSporkPubKey = "02d8e66d000dbe1c014cf7d0a1fe89fec297d78603cb5d0b1a17ec0e6809e9271d";

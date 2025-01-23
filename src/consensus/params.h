@@ -109,6 +109,7 @@ struct Params {
     int nTimeSlotLength;
 
     int nRewardAdjustmentInterval;
+    int nRewardAdjustmentIntervalV2;
 
     // burn addresses
     std::map<std::string, int> mBurnAddresses = {};

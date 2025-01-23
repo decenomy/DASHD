@@ -890,7 +890,7 @@ bool CMasternodeMan::Init()
     const auto nHeight = chainActive.Height();
     const auto& params = Params();
     const auto& consensus = params.GetConsensus();
-    const auto nBlocksPerWeek = WEEK_IN_SECONDS / consensus.nTargetSpacing;
+    const auto nBlocksPerWeek = WEEK_IN_SECONDS / consensus.TargetSpacing(nHeight);
 
     // get the current masternode collateral, and the next week collateral
     auto nCollateralAmount = CMasternode::GetMasternodeNodeCollateral(nHeight);
@@ -963,7 +963,7 @@ bool CMasternodeMan::ConnectBlock(const CBlockIndex* pindex, const CBlock& block
     const auto nHeight = pindex->nHeight;
     const auto& params = Params();
     const auto& consensus = params.GetConsensus();
-    const auto nBlocksPerWeek = WEEK_IN_SECONDS / consensus.nTargetSpacing;
+    const auto nBlocksPerWeek = WEEK_IN_SECONDS / consensus.TargetSpacing(nHeight);
 
     // removes old data
     const auto nRemovalHeight = nHeight - DEFAULT_MAX_REORG_DEPTH;
@@ -1076,7 +1076,7 @@ bool CMasternodeMan::DisconnectBlock(const CBlockIndex* pindex, const CBlock& bl
     const auto nHeight = pindex->nHeight;
     const auto& params = Params();
     const auto& consensus = params.GetConsensus();
-    const auto nBlocksPerWeek = WEEK_IN_SECONDS / consensus.nTargetSpacing;
+    const auto nBlocksPerWeek = WEEK_IN_SECONDS / consensus.TargetSpacing(nHeight);
 
     if(nHeight < initiatedAt) {
         initiatedAt = -1; // redo all the mappings at next connect block

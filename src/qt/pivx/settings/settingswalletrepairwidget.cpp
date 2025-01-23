@@ -140,7 +140,9 @@ void SettingsWalletRepairWidget::walletWeekRewind()
         return;
     }
 
-    auto numBlocks = WEEK_IN_SECONDS / Params().GetConsensus().nTargetSpacing;
+    const auto& params = Params();
+    const auto& consensus = params.GetConsensus();
+    auto numBlocks = WEEK_IN_SECONDS / consensus.TargetSpacing(chainActive.Height());
     std::string param = "";
 
     if (numBlocks <= chainActive.Height()) {
