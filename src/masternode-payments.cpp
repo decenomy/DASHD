@@ -217,7 +217,7 @@ bool CMasternodePayments::IsTransactionValid(const CBlock& block, const CBlockIn
         {
             const auto& params = Params();
             const auto& consensus = params.GetConsensus();
-            const auto& nTargetSpacing = consensus.nTargetSpacing;
+            const auto& nTargetSpacing = consensus.TargetSpacing(nPrevBlockHeight);
 
             if(pLastPaidBlock) {
 
