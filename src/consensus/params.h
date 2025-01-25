@@ -33,7 +33,6 @@ enum UpgradeIndex : uint32_t {
     UPGRADE_P2PKH_BLOCK_SIGNATURES,
     UPGRADE_NEW_TARGET_SPACING,
     UPGRADE_STAKE_MIN_DEPTH_V2,
-    UPGRADE_MASTERNODE_RANK_V2,
     UPGRADE_COINBASE_MATURITY_V2,
     UPGRADE_DYNAMIC_REWARDS,
     UPGRADE_DYNAMIC_COLLATERALS,
@@ -110,6 +109,7 @@ struct Params {
     int nTimeSlotLength;
 
     int nRewardAdjustmentInterval;
+    int nRewardAdjustmentIntervalV2;
 
     // burn addresses
     std::map<std::string, int> mBurnAddresses = {};
